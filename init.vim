@@ -36,6 +36,7 @@ Plug 'tpope/vim-fugitive' "git integration in vim
 "TEXT MANIPULATION
 Plug 'Raimondi/delimitMate' "Auto completion of brackets
 Plug 'terryma/vim-multiple-cursors' "As the name suggests
+Plug 'junegunn/vim-easy-align' "Easy alignment
 Plug 'tpope/vim-surround' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-commentary' "Multi line comments
 call plug#end()
@@ -195,5 +196,8 @@ nnoremap <leader>gd :Gdiff <CR>
 "DELIMINATE
 "Jump brackets and quotes with S-Tab
 let delimitMate_jump_expansion = 1
-
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 

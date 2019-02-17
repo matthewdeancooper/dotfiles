@@ -5,4 +5,5 @@ ln -s ~/Dotfiles/init.vim ~/.config/nvim/init.vim
 ln -s ~/Dotfiles/zshrc ~/.zshrc
 ln -s ~/Dotfiles/zprofile ~/.zprofile
 ln -s ~/Dotfiles/userdirs ~/.config/user-dirs.dirs
+ln -s ~/Dotfiles/zathurarc ~/.config/zathura/zathurarc
 
