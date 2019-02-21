@@ -8,6 +8,7 @@ set -sg escape-time 0
 # Index from 1 not 0
 setw -g base-index 1
 setw -g pane-base-index 1
+setw -g renumber-windows on
 
 # Set prefix to space.
 unbind C-b

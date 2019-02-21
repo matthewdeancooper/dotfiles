@@ -29,6 +29,9 @@ slstatus &
 clipmenud &
 mykeymap &
 checkbatt &
+thunderbird &
+signal-desktop &
+
 
 #------------------------------
 # WM 

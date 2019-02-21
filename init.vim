@@ -11,13 +11,13 @@ Plug 'neomake/neomake' "Error highlighting
 
 "THEME AND VISUAL
 Plug 'iCyMind/NeoSolarized' "Solarized colour scheme
-Plug 'Yggdroot/indentLine' "Shows tabs lines
+" Plug 'Yggdroot/indentLine' "Shows tabs lines
 Plug 'airblade/vim-gitgutter' "Shows changes from git version in gutter
 Plug 'machakann/vim-highlightedyank' "some visual feedback on yanked objects
 
 "LANGUAGE MODES
-Plug 'donRaphaco/neotex', { 'for': 'tex' } "live-preview for latex
 Plug 'fs111/pydoc.vim' "python documentation in vim
+Plug 'vim-latex/vim-latex' "latex
 Plug 'chrisbra/csv.vim' "Nicer CSV files
 
 "FILE NAVIGATION
