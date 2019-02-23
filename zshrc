@@ -4,14 +4,12 @@
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/matthew/.zshrc'
 
-# bindkey -v
-# No delay between caps for ctrl and esc
-KEYTIMEOUT=0
-
 # History
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+# No delay between caps for ctrl and esc
+KEYTIMEOUT=0
 
 # Completion
 autoload -Uz compinit
@@ -41,20 +39,28 @@ prompt suse
 # alias
 #------------------------------
 alias vim="nvim"
-alias mgg="cd ~"
-alias dowgg="cd ~/Downloads"
-alias docgg="cd ~/Documents"
-alias gitgg="cd ~/Git"
-alias picgg="cd ~/Pictures"
-alias bingg="cd ~/bin"
-
+alias la="ls -A"
+alias gh="cd ~"
+alias g/="cd /"
+alias gdow="cd ~/Downloads"
+alias gdoc="cd ~/Documents"
+alias ggit="cd ~/Git"
+alias gpic="cd ~/Pictures"
+alias gbin="cd ~/bin"
+alias smci="sudo make clean install"
+alias tns="tmux new -s"
+alias tls="tmux list-sessions"
+alias tks="tmux kill-session"
+alias tka="tmux kill-server"
+alias gac="git add * && git commit -m 'update' "
 #------------------------------
 # Functions 
 #------------------------------
 # ls on cd
 function chpwd() {
     emulate -L zsh
-    ls -a
+    # ls 
+	tree -L 1
 }
 
 # add sudo to buffer
@@ -78,17 +84,6 @@ zle -N zle-keymap-select
 zle-line-init() { zle-keymap-select 'beam'}
 
 
-# Fzf search dotfiles
-function fdot() {
-local files
-  files=$(fd . ~/Dotfiles | fzf)
-  if [[ -n $files ]]
-  then
-     vim -- $files
-  fi
-}
-zle -N fdot 
-
 # Bookmarks
 function mark() {
 		bookmark=$(pwd)
@@ -101,10 +96,10 @@ function fmark() {
 }
 
 
-# Fzf search and open 
-fo() {
+# fuzzy find and open with vim
+ff() {
   local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
@@ -112,6 +107,41 @@ fo() {
   fi
 }
 
+# fuzzy find pdfs 
+function ffp() {
+local files
+  files=$(fd . ~ -e pdf | fzf --preview '(w3m {})')
+  if [[ -n $files ]]
+  then
+     zathura -- $files
+  fi
+}
+
+# fuzzy find and open with vim
+function ffd() {
+local files
+  files=$(fd . ~/dotfiles | fzf)
+  if [[ -n $files ]]
+  then
+     vim -- $files
+  fi
+}
+
+# fuzzy find directory and cd 
+function ffc() {
+local directory 
+directory=$(fd . ~ -t d | fzf)
+  if [[ -n $directory ]]
+  then
+     cd -- $directory
+  fi
+}
+
+run_ranger () {
+    ranger < $TTY
+    zle reset-prompt
+}
+zle -N run_ranger
 #------------------------------
 # Some fzf options 
 #------------------------------
@@ -133,7 +163,7 @@ _fzf_compgen_dir() {
 #------------------------------
 bindkey '^O' autosuggest-accept
 bindkey '^S' add-sudo 
-
+bindkey '^R' run_ranger
 #------------------------------
 # Source 
 #------------------------------

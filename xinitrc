@@ -6,11 +6,12 @@ feh --bg-tile ~/Pictures/wp-notext.png
 #------------------------------
 # Variables
 #------------------------------
-export BROWSER="firefox"
+export TERM="st-256color"
+# export TERMINAL="st"
 export EDITOR="nvim"
-# export TERM='st'
-export TERM='st-256color'
-export BROWSER='firefox'
+export BROWSER="firefox"
+export READER="zathura"
+export FILE="ranger"
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
