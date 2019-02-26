@@ -97,7 +97,7 @@ function fmark() {
 
 
 # fuzzy find and open with vim
-ff() {
+ffv() {
   local out file key
   IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
@@ -109,21 +109,23 @@ ff() {
 
 # fuzzy find pdfs 
 function ffp() {
-local files
-  files=$(fd . ~ -e pdf | fzf --preview '(w3m {})')
-  if [[ -n $files ]]
-  then
-     zathura -- $files
+  local out file key
+  IFS=$'\n' out=($(fd . ~ -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
   fi
 }
 
 # fuzzy find and open with vim
 function ffd() {
-local files
-  files=$(fd . ~/dotfiles | fzf)
-  if [[ -n $files ]]
-  then
-     vim -- $files
+  local out file key
+  IFS=$'\n' out=($(fd . ~/dotfiles | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file" 
   fi
 }
 
@@ -152,7 +154,6 @@ zle -N run_ranger
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
-
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
