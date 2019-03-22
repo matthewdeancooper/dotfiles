@@ -19,6 +19,7 @@ Plug 'machakann/vim-highlightedyank' "some visual feedback on yanked objects
 Plug 'fs111/pydoc.vim' "python documentation in vim
 Plug 'vim-latex/vim-latex' "latex
 Plug 'chrisbra/csv.vim' "Nicer CSV files
+Plug 'jceb/vim-orgmode'
 
 "FILE NAVIGATION
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } "Install fzf
@@ -201,3 +202,5 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+
+let g:org_agenda_files = ['~/Documents/org/*.org']

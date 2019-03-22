@@ -3,7 +3,7 @@
 # Bigger stepping
 set scroll-step 300
 set scroll-page-aware true
-set page-padding 1
+set page-padding 10
 set font 'source code pro 11'
 
 #Solarized theme
