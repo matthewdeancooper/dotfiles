@@ -37,17 +37,19 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip 'manual)
      better-defaults
      emacs-lisp
      git
      org
      bibtex
-     ipython-notebook
      latex
      shell-scripts
      python
      c-c++
+     ess
      pdf-tools
      (shell :variables
             shell-default-height 30
@@ -57,33 +59,47 @@ values."
      syntax-checking
      version-control
      vinegar
-     csv
+     (mu4e :variables
+           mu4e-enable-notifications t
+           mu4e-enable-mode-line t
+           mu4e-account-alist t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      moe-theme
+                                      ;; snippets library
+                                      yasnippet-snippets
+                                      ;; yanking highlights
                                       evil-goggles
+                                      ;; ipython support org mode
+                                      ob-ipython
+                                      ;; Used for pomodoro alarm
+                                      sound-wav
+                                      ;; latex completion in org
+                                      cdlatex
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    org-projectile
                                     vi-tilde-fringe
-                                    rainbow-delimiters
+                                    ;; rainbow-delimiters
                                     lorem-ipsum
-                                    solarized-theme
+                                    ;; solarized-theme
                                     neotree
                                     fancy-battery
                                     golden-ratio
                                     evil-tutor
                                     google-translate
-                                    smooth-srcolling
                                     doc-view
-                                    powerline
+                                    evil-escape
+                                    ;; use ** instead of bullets in org
+                                    org-bullets
+                                    smooth-srcolling
+                                    winum
+                                    spaceline
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -143,8 +159,8 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((agenda . 5)
+                                (todos . 5))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -152,19 +168,17 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
-                         moe-dark
-                         leuven
-                         )
+   dotspacemacs-themes '(leuven)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 16
-                               :weight normal
+   dotspacemacs-default-font '(
+                               "Source Code Pro"
+                               :size 15
                                :width normal
-                               :powerline-scale 1.1)
+                               :weight normal
+                               :powerline-scale .5)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -187,15 +201,15 @@ values."
    ;; and TAB or <C-m> and RET.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
    ;; there. (default t)
    dotspacemacs-retain-visual-state-on-shift t
    ;; If non-nil, J and K move lines up and down when in visual mode.
    ;; (default nil)
-   dotspacemacs-visual-line-move-text nil
+   dotspacemacs-visual-line-move-text t
    ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
@@ -318,7 +332,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'trailing
+   dotspacemacs-whitespace-cleanup 'nil
    ))
 
 (defun dotspacemacs/user-init ()
@@ -337,36 +351,187 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; Less fancy powerline
-  (setq powerline-default-separator 'nil)
+
+  ;; GENERAL
+  ;; Edit actual file not sym
+  (setq vc-follow-symlinks nil)
+  ;; Highlighted yank etc
+  (evil-goggles-mode)
+  ;; Highlighted time
+  (setq evil-goggles-duration 0.100)
+
+  ;; LATEX
+  ;; Some latex stuff told i needed by pdftools
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
+
+
+  ;; ORG MODE - basic
   ;; Where is the org directory
   (setq org-directory "~/Documents/org")
   ;; Where are the agenda files
-  (setq org-agenda-files (list org-directory))
+  (setq org-agenda-files (list "~/Documents/org/todo.org"))
   ;; Where to capture by default
-  (setq org-default-notes-file "~/Documents/org/notes.org")
+  (setq org-default-notes-file "~/Documents/org/todo.org")
   ;; open agenda in current window
   (setq org-agenda-window-setup (quote current-window))
   ;; Dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   ;; Dont carry over missed scheduled
-  (setq org-scheduled-past-days 0)
+  ;; (setq org-scheduled-past-days 0)
   ;; Dont show scheduled in todo list
-  (setq org-agenda-todo-ignore-scheduled 'all)
+  ;; (setq org-agenda-todo-ignore-scheduled 'all)
   ;; Org capture stuff
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Documents/org/notes.org" "Tasks")
+        '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("l" "Linked Todo" entry (file+headline "~/Documents/org/notes.org" "Tasks")
+          ("l" "Linked Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("c" "Calendar" entry (file+headline "~/Documents/org/notes.org" "Calendar")
+          ("c" "Calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
            "* %? \n  %i")))
-  ;; Highlighted yank etc
-  (evil-goggles-mode)
-  ;; Highlighted time
-  (setq evil-goggles-duration 0.100)
-  )
+  ;; fontify code in source code blocks
+  (setq org-src-fontify-natively t)
+  ;; better latex in org mode for maths
+  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+  ;; (setq org-image-actual-width nil)
 
+  (setq org-agenda-custom-commands
+        '(("u" "Unscheduled"
+           ((agenda "" ((org-agenda-ndays 1)))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header " \n Unscheduled TODOs:"))))
+           ((org-agenda-compact-blocks t)))))
+
+
+
+  ;; ORG POMODORO
+  (setq org-pomodoro-length 60)
+  (setq org-pomodoro-short-break-length 5)
+  (setq org-pomodoro-long-break-length 15)
+  (setq org-pomodoro-play-sounds 1)
+
+  ;; ORG-IPYTHON
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (ipython . t)
+     (python . t)
+     ))
+  ;; Dont ask about running code in org mode
+  (setq org-confirm-babel-evaluate nil)
+  ;; display/update images in the buffer after I evaluate
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+  ;; Scale up latex eq rendering
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.65))
+  ;; completion in src blocks for i-python
+  ;; (add-to-list 'company-backends 'company-ob-ipython)
+  ;; proper code highligting for ipython when export to pdf
+  ;; (add-to-list 'org-latex-minted-langs '(ipython "python"))
+
+
+  ;; ORG REF
+  (setq reftex-default-bibliography '("~/Documents/bibliography/references.bib"))
+  ;; see org-ref for use of these variables
+  (setq org-ref-bibliography-notes "~/Documents/bibliography/helm-bibtex-notes"
+        ;; (setq org-ref-bibliography-notes "~/Documents/bibliography/notes.org"
+        org-ref-default-bibliography '("~/Documents/bibliography/references.bib")
+        org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/")
+  ;; helm completion for org-ref
+  (setq bibtex-completion-bibliography "~/Documents/bibliography/references.bib"
+        bibtex-completion-library-path "~/Documents/bibliography/bibtex-pdfs"
+        bibtex-completion-notes-path "~/Documents/bibliography/helm-bibtex-notes")
+
+  ;; Tell org-ref to let helm-bibtex find notes for it
+  (setq org-ref-notes-function
+        (lambda (thekey)
+          (let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
+            (bibtex-completion-edit-notes
+             (list (car (org-ref-get-bibtex-key-and-file thekey)))))))
+
+  ;; open pdf with system pdf viewer
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (start-process "open" "*open*" "open" fpath)))
+
+  ;; If you plan to build PDF files via LaTeX you need to make sure that
+  ;; org-latex-pdf-process is set to process the bibliography (using bibtex or biblatex).
+  ;; Here is one example of how to do that (see ./org-ref.org::*LaTeX export for other alternatives).
+  (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
+  ;; ORG DOWNLOAD
+  (add-hook 'dired-mode-hook 'org-download-enable)
+
+
+  ;; EYEBROWSER
+  ;; Emacs multiple tabs
+  (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+  (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+  (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+  (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+  (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+  ;; (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-6)
+
+  ;; MU4E
+  (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
+        ;;store link to message if in header view, not to header query
+        (setq org-mu4e-link-query-in-headers-mode nil)
+;;; Set up some common mu4e variables
+        (setq mu4e-maildir "~/Maildir"
+              mu4e-trash-folder "/Trash"
+              mu4e-refile-folder "/Archive"
+              mu4e-get-mail-command "offlineimap"
+              mu4e-update-interval nil
+              mu4e-compose-signature-auto-include nil
+              mu4e-view-show-images t
+              mu4e-view-show-addresses t)
+
+        (setq mu4e-account-alist
+              '(("gmail"
+                 ;; Under each account, set the account-specific variables you want.
+                 (mu4e-sent-messages-behavior delete)
+                 (mu4e-sent-folder "/gmail/bak.sent")
+                 (mu4e-drafts-folder "/gmail/bak.drafts")
+                 (user-mail-address "matthewdeancooper@gmail.com")
+                 (user-full-name "matthew"))
+                ("usyd"
+                 (mu4e-sent-messages-behavior sent)
+                 (mu4e-sent-folder "/usyd/Sent Items")
+                 (mu4e-drafts-folder "/usyd/Drafts")
+                 (user-mail-address "mcoo3379@uni.sydney.edu.au")
+                 (user-full-name "Matthew"))))
+        (mu4e/mail-account-reset)
+
+;;; Alerts
+        (with-eval-after-load 'mu4e-alert
+          ;; Enable Desktop notifications
+          ;; (mu4e-alert-set-default-style 'notifications)) ; For linux
+          (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+
+        ;; SMTPMAIL for sending
+        ;; (setq message-send-mail-function 'smtpmail-send-it
+        ;;       starttls-use-gnutls t
+        ;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+        ;;       smtpmail-auth-credentials
+        ;;       '(("smtp.gmail.com" 587 "matthewdeancooper@gmail.com" nil))
+        ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+        ;;       smtpmail-smtp-server "smtp.gmail.com"
+        ;;       smtpmail-smtp-service 587)
+        ;; alternatively, for emacs-24 you can use:
+        (setq message-send-mail-function 'smtpmail-send-it
+              smtpmail-stream-type 'starttls
+              smtpmail-default-smtp-server "smtp.gmail.com"
+              smtpmail-smtp-server "smtp.gmail.com"
+              smtpmail-smtp-service 587)
+
+        ;; don't keep message buffers around
+        (setq message-kill-buffer-on-exit t)
+
+        )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -374,15 +539,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(evil-want-Y-yank-to-eol nil)
- '(package-selected-packages
-   (quote
-    (poet-theme minimap evil-goggles pdf-tools key-chord ivy tablist alert log4e gntp magit-popup dash-functional htmlize helm-bibtex parsebib gitignore-mode fringe-helper git-gutter+ git-gutter flyspell-correct pos-tip flycheck magit transient git-commit with-editor skewer-mode deferred websocket js2-mode simple-httpd company biblio biblio-core yasnippet packed auctex anaconda-mode pythonic auto-complete vi-tilde-fringe rainbow-delimiters neotree lorem-ipsum google-translate golden-ratio leuven-theme-theme auctex-latexmk yapfify xterm-color ws-butler winum which-key volatile-highlights uuidgen use-package unfill toc-org spaceline smeargle shell-pop restart-emacs ranger pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file mwim multi-term move-text moe-theme mmm-mode markdown-toc magit-gitflow macrostep live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav ein dumb-jump disaster diminish diff-hl define-word cython-mode csv-mode company-statistics company-shell company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )

@@ -1,15 +1,15 @@
 #------------------------------
 # Wallpaper
-#------------------------------
-feh --bg-tile ~/Pictures/wallpaper/wp-notext.png
+#-----------------------------
+feh --bg-fill ~/Pictures/wallpaper/wp-notext.png
 
 #------------------------------
 # Variables
 #------------------------------
 export TERM="st-256color"
 # export TERMINAL="st"
-export EDITOR="emacs"
-# export EDITOR="nvim"
+# export EDITOR="emacs"
+export EDITOR="nvim"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
@@ -32,16 +32,17 @@ slstatus &
 clipmenud &
 mykeymap &
 checkbatt &
-(emacs --daemon && emacsclient -c)&
-firefox &
+udiskie &
+#(emacs --daemon)&
+# firefox &
 
 
 #------------------------------
 # WM
 #------------------------------
 while true; do
-    # Log stderror to a file
-    # dwm 2> ~/.dwm.log
-    # No error logging
+#     # Log stderror to a file
+#     # dwm 2> ~/.dwm.log
+#     # No error logging
     dwm >/dev/null 2>&1
 done
