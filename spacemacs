@@ -87,6 +87,8 @@ values."
                                       helm-fuzzier
                                       ;; struc search org from anywhere
                                       helm-org-rifle
+                                      ;; notes from pdfs with org
+                                      org-noter
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -392,11 +394,12 @@ you should place your code here."
   ;; Where is the org directory
   (setq org-directory "~/Documents/org")
   ;; Where are the agenda files
-  (setq org-agenda-files (list "~/Documents/org/todo.org"))
+  (setq org-agenda-files (list "~/Documents/org/todo.org"
+                               "~/Documents/org/year.org"))
   ;; Where to capture by default
   (setq org-default-notes-file "~/Documents/org/todo.org")
   ;; open agenda in current window
-  ;; (setq org-agenda-window-setup (quote current-window))
+  (setq org-agenda-window-setup (quote current-window))
   ;; Dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   ;; Dont carry over missed scheduled
@@ -410,11 +413,12 @@ you should place your code here."
           ("d" "Calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
            "* %? \n  %i")
           ("D" "Calendar linked" entry (file+headline "~/Documents/org/todo.org" "Calendar")
-           "* %? \n  %i %a")))
+           "* %? \n  %i %a")
+          ("y" "Year calendar" entry (file+headline "~/Documents/org/year.org" "Calendar")
+           "* %? \n  %i")))
 
   (setq org-agenda-clockreport-parameter-plist
         (quote (:link t :maxlevel 4 :fileskip0 t :compact t :narrow 80 :formula %)))
-  ;; (org-agenda-clockreport-mode)
 
   ;; Custom agenda stuff
   (setq org-agenda-custom-commands
@@ -546,7 +550,6 @@ you should place your code here."
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
 
-
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -557,7 +560,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ranger helm-org-rifle helm-fuzzier arch-packer yasnippet-snippets yapfify xterm-color ws-butler which-key volatile-highlights uuidgen use-package unfill toc-org sound-wav smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-projectile org-present org-pomodoro org-mime org-download open-junk-file ob-ipython mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-gitflow macrostep live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (org-noter ranger helm-org-rifle helm-fuzzier arch-packer yasnippet-snippets yapfify xterm-color ws-butler which-key volatile-highlights uuidgen use-package unfill toc-org sound-wav smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-projectile org-present org-pomodoro org-mime org-download open-junk-file ob-ipython mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-gitflow macrostep live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
