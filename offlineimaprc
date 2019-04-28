@@ -37,9 +37,9 @@ remotehost = imap.gmail.com
 remoteuser = matthewdeancooper@gmail.com
 # Decrypt and read the encrypted password
 remotepasseval = get_pass("gmail.com/app")
-nametrans = lambda foldername: re.sub ('^\[gmail\]', 'bak',
-                               re.sub ('sent_mail', 'sent',
-                               re.sub ('starred', 'flagged',
-                               re.sub (' ', '_', foldername.lower()))))
+# nametrans = lambda foldername: re.sub ('^\[gmail\]', 'bak',
+#                                re.sub ('sent_mail', 'sent',
+#                                re.sub ('starred', 'flagged',
+#                                re.sub (' ', '_', foldername.lower()))))
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 ssl_version = tls1_2

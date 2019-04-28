@@ -54,15 +54,19 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil)
+
+     spell-checking
+     ;; (spell-checking :variables
+     ;; spell-checking-enable-by-default t
+     ;; =enable-flyspell-auto-completion= t)
      syntax-checking
      version-control
      vinegar
      (mu4e :variables
-           mu4e-enable-notifications t
-           mu4e-enable-mode-line t
+           ;; mu4e-enable-notifications t
+           ;; mu4e-enable-mode-line t
            mu4e-account-alist t)
+     ranger
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -79,6 +83,10 @@ values."
                                       sound-wav
                                       ;; latex completion in org
                                       cdlatex
+                                      ;; make helm even fuzzier
+                                      helm-fuzzier
+                                      ;; struc search org from anywhere
+                                      helm-org-rifle
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -159,8 +167,10 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((agenda . 5)
-                                (todos . 5))
+   dotspacemacs-startup-lists '(
+                                ;; (agenda . 5)
+                                ;; (todos . 5)
+                                )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -359,6 +369,13 @@ you should place your code here."
   (evil-goggles-mode)
   ;; Highlighted time
   (setq evil-goggles-duration 0.100)
+  ;; Turn on agressive indent mode globally except:
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+
+  ;; OTHER
+  ;; enable helm fuzzier
+  (helm-fuzzier-mode 1)
 
   ;; LATEX
   ;; Some latex stuff told i needed by pdftools
@@ -371,7 +388,7 @@ you should place your code here."
             #'TeX-revert-document-buffer)
 
 
-  ;; ORG MODE - basic
+  ;; ORG MODE - AGENDA
   ;; Where is the org directory
   (setq org-directory "~/Documents/org")
   ;; Where are the agenda files
@@ -379,50 +396,56 @@ you should place your code here."
   ;; Where to capture by default
   (setq org-default-notes-file "~/Documents/org/todo.org")
   ;; open agenda in current window
-  (setq org-agenda-window-setup (quote current-window))
+  ;; (setq org-agenda-window-setup (quote current-window))
   ;; Dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   ;; Dont carry over missed scheduled
   ;; (setq org-scheduled-past-days 0)
-  ;; Dont show scheduled in todo list
-  ;; (setq org-agenda-todo-ignore-scheduled 'all)
   ;; Org capture stuff
   (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+        '(("t" "Task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("l" "Linked Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+          ("T" "Task linked" entry (file+headline "~/Documents/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("c" "Calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
-           "* %? \n  %i")))
+          ("d" "Calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+           "* %? \n  %i")
+          ("D" "Calendar linked" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+           "* %? \n  %i %a")))
+
+  (setq org-agenda-clockreport-parameter-plist
+        (quote (:link t :maxlevel 4 :fileskip0 t :compact t :narrow 80 :formula %)))
+  ;; (org-agenda-clockreport-mode)
+
+  ;; Custom agenda stuff
+  (setq org-agenda-custom-commands
+        '(("u" "Unscheduled"
+           ((agenda "" ((org-agenda-ndays 1)))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header " \n No schedule/deadline"))))
+           ((org-agenda-compact-blocks t)))))
+
+
+  ;; ORG MODE - POMODORO
+  (setq org-pomodoro-length 60)
+  (setq org-pomodoro-short-break-length 5)
+  (setq org-pomodoro-long-break-length 15)
+  (setq org-pomodoro-play-sounds 1)
+
+
+  ;; ORG MODE - SRC
   ;; fontify code in source code blocks
   (setq org-src-fontify-natively t)
   ;; better latex in org mode for maths
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
   ;; (setq org-image-actual-width nil)
 
-  (setq org-agenda-custom-commands
-        '(("u" "Unscheduled"
-           ((agenda "" ((org-agenda-ndays 1)))
-            (alltodo ""
-                     ((org-agenda-skip-function '(or (org-agenda-skip-if nil '(scheduled deadline))))
-                      (org-agenda-overriding-header " \n Unscheduled TODOs:"))))
-           ((org-agenda-compact-blocks t)))))
 
-
-
-  ;; ORG POMODORO
-  (setq org-pomodoro-length 60)
-  (setq org-pomodoro-short-break-length 5)
-  (setq org-pomodoro-long-break-length 15)
-  (setq org-pomodoro-play-sounds 1)
-
-  ;; ORG-IPYTHON
+  ;; ORG MODE - BABEL
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '(
-     (ipython . t)
-     (python . t)
-     ))
+   '((ipython . t)
+     (python . t)))
   ;; Dont ask about running code in org mode
   (setq org-confirm-babel-evaluate nil)
   ;; display/update images in the buffer after I evaluate
@@ -435,7 +458,7 @@ you should place your code here."
   ;; (add-to-list 'org-latex-minted-langs '(ipython "python"))
 
 
-  ;; ORG REF
+  ;; ORG MODE - REFERENCES
   (setq reftex-default-bibliography '("~/Documents/bibliography/references.bib"))
   ;; see org-ref for use of these variables
   (setq org-ref-bibliography-notes "~/Documents/bibliography/helm-bibtex-notes"
@@ -446,92 +469,85 @@ you should place your code here."
   (setq bibtex-completion-bibliography "~/Documents/bibliography/references.bib"
         bibtex-completion-library-path "~/Documents/bibliography/bibtex-pdfs"
         bibtex-completion-notes-path "~/Documents/bibliography/helm-bibtex-notes")
-
   ;; Tell org-ref to let helm-bibtex find notes for it
   (setq org-ref-notes-function
         (lambda (thekey)
           (let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
             (bibtex-completion-edit-notes
              (list (car (org-ref-get-bibtex-key-and-file thekey)))))))
-
   ;; open pdf with system pdf viewer
   (setq bibtex-completion-pdf-open-function
         (lambda (fpath)
           (start-process "open" "*open*" "open" fpath)))
-
   ;; If you plan to build PDF files via LaTeX you need to make sure that
   ;; org-latex-pdf-process is set to process the bibliography (using bibtex or biblatex).
   ;; Here is one example of how to do that (see ./org-ref.org::*LaTeX export for other alternatives).
   (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
-  ;; ORG DOWNLOAD
+
+
+  ;; ORG MODE - OTHER
+  ;; download images
   (add-hook 'dired-mode-hook 'org-download-enable)
 
 
-  ;; EYEBROWSER
+  ;; EYEBROWSE
   ;; Emacs multiple tabs
   (define-key eyebrowse-mode-map (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
   (define-key eyebrowse-mode-map (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
   (define-key eyebrowse-mode-map (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
   (define-key eyebrowse-mode-map (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
   (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
-  ;; (define-key eyebrowse-mode-map (kbd "M-5") 'eyebrowse-switch-to-window-config-6)
 
-  ;; MU4E
+
+  ;; EMAIL - MU4E - GENERAL
   (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
-        ;;store link to message if in header view, not to header query
-        (setq org-mu4e-link-query-in-headers-mode nil)
-;;; Set up some common mu4e variables
-        (setq mu4e-maildir "~/Maildir"
-              mu4e-trash-folder "/Trash"
-              mu4e-refile-folder "/Archive"
-              mu4e-get-mail-command "offlineimap"
-              mu4e-update-interval nil
-              mu4e-compose-signature-auto-include nil
-              mu4e-view-show-images t
-              mu4e-view-show-addresses t)
+  ;;store link to message if in header view, not to header query
+  (setq org-mu4e-link-query-in-headers-mode nil)
+  ;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/Maildir"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval nil
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
 
-        (setq mu4e-account-alist
-              '(("gmail"
-                 ;; Under each account, set the account-specific variables you want.
-                 (mu4e-sent-messages-behavior delete)
-                 (mu4e-sent-folder "/gmail/bak.sent")
-                 (mu4e-drafts-folder "/gmail/bak.drafts")
-                 (user-mail-address "matthewdeancooper@gmail.com")
-                 (user-full-name "matthew"))
-                ("usyd"
-                 (mu4e-sent-messages-behavior sent)
-                 (mu4e-sent-folder "/usyd/Sent Items")
-                 (mu4e-drafts-folder "/usyd/Drafts")
-                 (user-mail-address "mcoo3379@uni.sydney.edu.au")
-                 (user-full-name "Matthew"))))
-        (mu4e/mail-account-reset)
+  ;; EMAIL - MU4E - ACCOUNTS
+  (setq mu4e-account-alist
+        '(("gmail"
+           ;; Under each account, set the account-specific variables you want.
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-sent-folder "/gmail/[Gmail].Sent Mail")
+           (mu4e-drafts-folder "/gmail/[Gmail].Drafts")
+           (user-mail-address "matthewdeancooper@gmail.com")
+           (user-full-name "matthew"))
+          ("usyd"
+           (mu4e-sent-messages-behavior sent)
+           (mu4e-sent-folder "/usyd/Sent Items")
+           (mu4e-drafts-folder "/usyd/Drafts")
+           (user-mail-address "mcoo3379@uni.sydney.edu.au")
+           (user-full-name "Matthew"))))
+  (mu4e/mail-account-reset)
 
-;;; Alerts
-        (with-eval-after-load 'mu4e-alert
-          ;; Enable Desktop notifications
-          ;; (mu4e-alert-set-default-style 'notifications)) ; For linux
-          (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
+  ;; ;; Alerts
+  ;; (with-eval-after-load 'mu4e-alert
+  ;;   ;; Enable Desktop notifications
+  ;;   ;; (mu4e-alert-set-default-style 'notifications)) ; For linux
+  ;;   (mu4e-alert-set-default-style 'libnotify))  ; Alternative for linux
 
-        ;; SMTPMAIL for sending
-        ;; (setq message-send-mail-function 'smtpmail-send-it
-        ;;       starttls-use-gnutls t
-        ;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        ;;       smtpmail-auth-credentials
-        ;;       '(("smtp.gmail.com" 587 "matthewdeancooper@gmail.com" nil))
-        ;;       smtpmail-default-smtp-server "smtp.gmail.com"
-        ;;       smtpmail-smtp-server "smtp.gmail.com"
-        ;;       smtpmail-smtp-service 587)
-        ;; alternatively, for emacs-24 you can use:
-        (setq message-send-mail-function 'smtpmail-send-it
-              smtpmail-stream-type 'starttls
-              smtpmail-default-smtp-server "smtp.gmail.com"
-              smtpmail-smtp-server "smtp.gmail.com"
-              smtpmail-smtp-service 587)
 
-        ;; don't keep message buffers around
-        (setq message-kill-buffer-on-exit t)
+  ;; EMAIL - SMTP - For sending mail
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
 
-        )
+
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -539,7 +555,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   (quote
+    (ranger helm-org-rifle helm-fuzzier arch-packer yasnippet-snippets yapfify xterm-color ws-butler which-key volatile-highlights uuidgen use-package unfill toc-org sound-wav smeargle shell-pop restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-projectile org-present org-pomodoro org-mime org-download open-junk-file ob-ipython mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-gitflow macrostep live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-data-view eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format cdlatex auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
