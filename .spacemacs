@@ -59,6 +59,9 @@ values."
      ;; =enable-flyspell-auto-completion= t)
      syntax-checking
      version-control
+     ;; (version-control :variables
+     ;;                  version-control-global-margin t
+     ;; version-control-diff-tool 'diff-hl)
      vinegar
      (mu4e :variables
            mu4e-enable-notifications t
@@ -98,11 +101,11 @@ values."
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    ;; git-gutter
-                                    ;; git-gutter+
-                                    ;; git-gutter-fringe
-                                    ;; git-gutter-fringe+
-                                    ;; vi-tilde-fringe
+                                    git-gutter
+                                    git-gutter+
+                                    git-gutter-fringe
+                                    git-gutter-fringe+
+                                    vi-tilde-fringe
                                     rainbow-delimiters
                                     ;; lorem-ipsum
                                     neotree
@@ -403,6 +406,10 @@ you should place your code here."
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (global-git-commit-mode t)
 
+  (setq version-control-diff-tool 'diff-hl)
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
+
   ;; ------------------------------------------------------------
   ;; PACKAGES - EXWM
   ;; ------------------------------------------------------------
@@ -683,7 +690,6 @@ you should place your code here."
   (spacemacs/set-leader-keys "on" 'org-noter)
   (spacemacs/set-leader-keys "ol" 'cdlatex-environment)
   (spacemacs/set-leader-keys "of" 'helm-org-agenda-files-headings)
-
 
   )
 ;; Do not write anything past this comment. This is where Emacs will
