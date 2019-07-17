@@ -405,10 +405,10 @@ you should place your code here."
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
   (global-git-commit-mode t)
-
   (setq version-control-diff-tool 'diff-hl)
   (global-diff-hl-mode)
   (diff-hl-flydiff-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
   ;; ------------------------------------------------------------
   ;; PACKAGES - EXWM
