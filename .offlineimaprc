@@ -1,0 +1,45 @@
+[general]
+# accounts = usyd 
+accounts = usyd, gmail 
+maxsyncaccounts = 3
+# Path to file with arbitrary Python code to be loaded
+pythonfile = ~/.offlineimap.py
+
+
+[Account usyd]
+localrepository = usyd-local
+remoterepository = usyd-remote
+
+[Repository usyd-local]
+type = Maildir
+localfolders = ~/Maildir/usyd
+
+[Repository usyd-remote]
+type = IMAP
+remotehost = imap-mail.outlook.com
+remoteuser = mcoo3379@uni.sydney.edu.au
+# Decrypt and read the encrypted password
+remotepasseval = get_pass("myuni.sydney.edu.au/mcoo@uni.sydney.edu.au")
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+
+[Repository gmail-local]
+type = Maildir
+localfolders = ~/Maildir/gmail
+
+[Repository gmail-remote]
+type = Gmail 
+remotehost = imap.gmail.com
+remoteuser = matthewdeancooper@gmail.com
+# Decrypt and read the encrypted password
+remotepasseval = get_pass("gmail.com/app")
+# nametrans = lambda foldername: re.sub ('^\[gmail\]', 'bak',
+#                                re.sub ('sent_mail', 'sent',
+#                                re.sub ('starred', 'flagged',
+#                                re.sub (' ', '_', foldername.lower()))))
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl_version = tls1_2

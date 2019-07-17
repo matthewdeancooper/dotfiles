@@ -1,0 +1,83 @@
+set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+# Some defaults
+set -g allow-rename off
+set-window-option -g mode-keys vi
+set -sg escape-time 0
+# Mouse
+
+# Index from 1 not 0
+setw -g base-index 1
+setw -g pane-base-index 1
+setw -g renumber-windows on
+
+# Set prefix to space.
+unbind C-b
+set -g prefix C-Space
+
+# Copy in selection mode to clipboard
+# bind -t vi-copy y copy-pipe "xclip"
+
+
+# Set binding for window split
+bind-key s split-window -v
+bind-key v split-window -h
+bind-key q kill-pane 
+
+
+bind-key -r -T prefix Up             resize-pane -U
+bind-key -r -T prefix Down           resize-pane -D
+bind-key -r -T prefix Left           resize-pane -L
+bind-key -r -T prefix Right          resize-pane -R
+
+# Set binding for source 
+bind-key r source-file ~/.tmux.conf
+
+# Smart pane switching with awareness of Vim splits.
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n C-h if-shell "$is_vim" "send-keys C-h"  "select-pane -L"
+bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
+bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
+bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
+bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+bind-key -T copy-mode-vi C-h select-pane -L
+bind-key -T copy-mode-vi C-j select-pane -D
+bind-key -T copy-mode-vi C-k select-pane -U
+bind-key -T copy-mode-vi C-l select-pane -R
+bind-key -T copy-mode-vi C-\ select-pane -l
+
+# Still able to clear screen
+bind C-l send-keys 'C-l'
+
+# switch windows alt+number
+bind-key -n M-1 select-window -t 1
+bind-key -n M-2 select-window -t 2
+bind-key -n M-3 select-window -t 3
+bind-key -n M-4 select-window -t 4
+bind-key -n M-5 select-window -t 5
+bind-key -n M-6 select-window -t 6
+bind-key -n M-7 select-window -t 7
+bind-key -n M-8 select-window -t 8
+bind-key -n M-9 select-window -t 9
+
+
+#Theming
+#------------
+# pane
+#------------
+# set -g pane-border-fg colour239 
+# set -g pane-active-border-fg colour6 
+#------------
+# tabs
+#------------
+setw -g window-status-format "#[fg=colour245]#[bg=colour0] #I#[bg=colour0]#[fg=colour245] #W "
+setw -g window-status-current-format "#[bg=colour10]#[fg=colour231] #I#[fg=colour254]#[bg=colour10] #W "
+#------------
+# status bar
+#------------
+set-option -g status-position bottom 
+set -g status-fg colour239
+set -g status-bg colour0
+set -g status-left ''
+set -g status-right-length 0
