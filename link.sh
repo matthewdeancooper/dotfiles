@@ -1,5 +1,5 @@
 ## home
-ln -s ~/dotfiles/tmuxconf ~/.tmux.conf
+ln -s ~/dotfiles/.tmuxconf ~/.tmux.conf
 ln -s ~/dotfiles/.xinitrc ~/.xinitrc
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.zprofile ~/.zprofile
