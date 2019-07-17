@@ -41,27 +41,27 @@ PROMPT='${PWD/#$HOME/~} '
 # alias
 #------------------------------
 alias vim="nvim"
-alias mutt="neomutt"
+# alias mutt="neomutt"
 alias la="ls -A"
-alias gh="cd ~"
-alias g/="cd /"
-alias gdow="cd ~/Downloads"
-alias gdoc="cd ~/Documents"
-alias gdot="cd ~/dotfiles"
-alias ggit="cd ~/git"
-alias gpic="cd ~/Pictures"
-alias gbin="cd ~/bin"
-alias gmed="cd ~/Documents/medical-physics"
-alias gtext="cd ~/Documents/textbooks"
-alias gmp="cd ~/Documents/medical-physics"
+# alias gh="cd ~"
+# alias g/="cd /"
+# alias gdow="cd ~/Downloads"
+# alias gdoc="cd ~/Documents"
+# alias gdot="cd ~/dotfiles"
+# alias ggit="cd ~/git"
+# alias gpic="cd ~/Pictures"
+# alias gbin="cd ~/bin"
+# alias gmed="cd ~/Documents/medical-physics"
+# alias gtext="cd ~/Documents/textbooks"
+# alias gmp="cd ~/Documents/medical-physics"
 alias smci="sudo make clean install"
-alias tns="tmux new -s"
-alias tls="tmux list-sessions"
-alias tks="tmux kill-session"
-alias tka="tmux kill-server"
-alias gac="git add * && git commit -m 'update' "
-alias mail="offlineimap -a usyd && mutt"
-alias ec="emacsclient -c"
+# alias tns="tmux new -s"
+# alias tls="tmux list-sessions"
+# alias tks="tmux kill-session"
+# alias tka="tmux kill-server"
+# alias gac="git add * && git commit -m 'update' "
+# alias mail="offlineimap -a usyd && mutt"
+# alias ec="emacsclient -c"
 #------------------------------
 # Functions
 #------------------------------
@@ -72,11 +72,11 @@ function chpwd() {
 	tree -L 1
 }
 
-# add sudo to buffer
-function add-sudo(){
-  LBUFFER="$sudo {LBUFFER}"
-}
-zle -N add-sudo
+# # add sudo to buffer
+# function add-sudo(){
+#   LBUFFER="$sudo {LBUFFER}"
+# }
+# zle -N add-sudo
 
 
 
@@ -93,79 +93,89 @@ zle -N zle-keymap-select
 zle-line-init() { zle-keymap-select 'beam'}
 
 
-# Bookmarks
-function mark() {
-		bookmark=$(pwd)
-		echo $bookmark >> ~/.marks
-}
+# # Bookmarks
+# function mark() {
+# 		bookmark=$(pwd)
+# 		echo $bookmark >> ~/.marks
+# }
 
-function fmark() {
-		bookmark=$(cat ~/.marks | fzf)
-		cd "$bookmark"
-}
+# function fmark() {
+# 		bookmark=$(cat ~/.marks | fzf)
+# 		cd "$bookmark"
+# }
 
 
-# fuzzy find and open with vim
-fvim() {
-  local out file key
-  IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
+# # fuzzy find and open with vim
+# fvim() {
+#     local out file key
+#     IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+#     key=$(head -1 <<< "$out")
+#     file=$(head -2 <<< "$out" | tail -1)
+#     if [ -n "$file" ]; then
+#         [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+#     fi
+# }
 
-# fuzzy find pdfs
+# # fuzzy find pdfs
 function fpdf() {
-  local out file key
-  IFS=$'\n' out=($(fd . ~/Documents -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
-  fi
+    local out file key
+    IFS=$'\n' out=($(fd . ~/Documents -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+    key=$(head -1 <<< "$out")
+    file=$(head -2 <<< "$out" | tail -1)
+    if [ -n "$file" ]; then
+        [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
+    fi
 }
 
-# fuzzy find dotfiles and open with vim
-function fdot() {
-  local out file key
-  IFS=$'\n' out=($(fd . ~/dotfiles | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
+function ftext() {
+    local out file key
+    IFS=$'\n' out=($(fd . ~/Documents/textbooks -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+    key=$(head -1 <<< "$out")
+    file=$(head -2 <<< "$out" | tail -1)
+    if [ -n "$file" ]; then
+        [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
+    fi
 }
 
-# fuzzy find Documents and open with vim
-function fdoc() {
-  local out file key
-  IFS=$'\n' out=($(fd . ~/Documents | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
+# # fuzzy find dotfiles and open with vim
+# function fdot() {
+#   local out file key
+#   IFS=$'\n' out=($(fd . ~/dotfiles | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+#   key=$(head -1 <<< "$out")
+#   file=$(head -2 <<< "$out" | tail -1)
+#   if [ -n "$file" ]; then
+#     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+#   fi
+# }
 
-# fgit - find my git tracked files
+# # fuzzy find Documents and open with vim
+# function fdoc() {
+#   local out file key
+#   IFS=$'\n' out=($(fd . ~/Documents | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+#   key=$(head -1 <<< "$out")
+#   file=$(head -2 <<< "$out" | tail -1)
+#   if [ -n "$file" ]; then
+#     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+#   fi
+# }
 
-# fuzzy find directory and cd
-function fdir() {
-local directory
-directory=$(fd . ~ -t d | fzf)
-  if [[ -n $directory ]]
-  then
-     cd -- $directory
-  fi
-}
+# # fgit - find my git tracked files
 
-run_ranger () {
-    ranger < $TTY
-    zle reset-prompt
-}
-zle -N run_ranger
+# # fuzzy find directory and cd
+# function fdir() {
+# local directory
+# directory=$(fd . ~ -t d | fzf)
+#   if [[ -n $directory ]]
+#   then
+#      cd -- $directory
+#   fi
+# }
+
+# run_ranger () {
+#     ranger < $TTY
+#     zle reset-prompt
+# }
+# zle -N run_ranger
 #------------------------------
 # Some fzf options
 #------------------------------
@@ -184,9 +194,9 @@ _fzf_compgen_dir() {
 #------------------------------
 # Keybindings
 #------------------------------
-bindkey '^O' autosuggest-accept
-bindkey '^S' add-sudo
-bindkey '^R' run_ranger
+bindkey '^A' autosuggest-accept
+# bindkey '^p' add-sudo
+# bindkey '^R' run_ranger
 #------------------------------
 # Source
 #------------------------------

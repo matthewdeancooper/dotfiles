@@ -1,18 +1,25 @@
 #------------------------------
 # Wallpaper
 #-----------------------------
-feh --bg-fill ~/Pictures/wallpaper/wp-notext.png
+# feh --bg-fill ~/Pictures/wallpaper/wp-notext.png
 
 #------------------------------
 # Variables
 #------------------------------
-export TERM="st-256color"
-# export TERMINAL="st"
-# export EDITOR="emacs"
-export EDITOR="nvim"
+# export TERM="st-256color"
+# export EDITOR="nvim"
+# export BROWSER="fireox"
+# export READER="zathura"
+# export FILE="ranger"
+
+
+export TERMINAL="ansi-term"
+export EDITOR="emacs"
 export BROWSER="firefox"
-export READER="zathura"
-export FILE="ranger"
+export READER="emacs"
+export FILE="emacs"
+
+# export PYTHONPATH=$PYTHONPATH:/home/matthew/my_py_modules
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -22,27 +29,34 @@ fi
 #------------------------------
 # User configuration
 #------------------------------
+
 # Set backlight
 light -S 30
 
 #------------------------------
 # Start
 #------------------------------
-slstatus &
-clipmenud &
+# slstatus &
+# clipmenud &
 mykeymap &
-checkbatt &
+mydualscreen &
+# checkbatt &
 udiskie &
-#(emacs --daemon)&
-# firefox &
+juiced -d &
+dunst > /dev/null 2>&1 &
+# (emacs --daemon)&
 
 
 #------------------------------
 # WM
 #------------------------------
-while true; do
-#     # Log stderror to a file
-#     # dwm 2> ~/.dwm.log
-#     # No error logging
-    dwm >/dev/null 2>&1
-done
+# exec stumpwm
+
+# while true; do
+#     #     # Log stderror to a file
+#     #     # dwm 2> ~/.dwm.log
+#     #     # No error logging
+#     dwm >/dev/null 2>&1
+# done
+
+exwm-start
