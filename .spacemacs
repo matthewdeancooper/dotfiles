@@ -690,6 +690,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "on" 'org-noter)
   (spacemacs/set-leader-keys "ol" 'cdlatex-environment)
   (spacemacs/set-leader-keys "of" 'helm-org-agenda-files-headings)
+  (spacemacs/set-leader-keys "om" 'menu-bar-mode)
 
   )
 ;; Do not write anything past this comment. This is where Emacs will
