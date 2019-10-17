@@ -18,7 +18,6 @@ Plug 'machakann/vim-highlightedyank' "some visual feedback on yanked objects
 "LANGUAGE MODES
 Plug 'fs111/pydoc.vim' "python documentation in vim
 Plug 'vim-latex/vim-latex' "latex
-Plug 'chrisbra/csv.vim' "Nicer CSV files
 Plug 'jceb/vim-orgmode'
 
 "FILE NAVIGATION
@@ -35,11 +34,12 @@ Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-fugitive' "git integration in vim
 
 "TEXT MANIPULATION
-Plug 'Raimondi/delimitMate' "Auto completion of brackets
-Plug 'terryma/vim-multiple-cursors' "As the name suggests
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align' "Easy alignment
 Plug 'tpope/vim-surround' "Use for add/remove bracket/quotes
+Plug 'tpope/vim-repeat' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-commentary' "Multi line comments
+Plug 'dusans/vim-hardmode'
 call plug#end()
 
 
@@ -72,20 +72,19 @@ set lazyredraw "Removes lag when using rel line numbers and cursorline
 set inccommand=split "On the fly splitting with split window"
 set ttimeout ttimeoutlen=10
 set ts=4 "tab is 4 spaces"
+let mapleader = " "
 
 "KEY SETTINGS
 "Remove unused key in normal
-noremap ; :
+"noremap ; :
 "Turn off search highlighting when exit search
 nnoremap <silent> <ESC> :nohlsearch<CR>
 "Window commands
-nnoremap <space> <C-w>
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-w> :bp<CR> 
-nnoremap <C-y> :bn<CR> 
+" nnoremap <space> <C-w>
+" nnoremap <C-j> <C-w><C-j>
+" nnoremap <C-k> <C-w><C-k>
+" nnoremap <C-l> <C-w><C-l>
+" nnoremap <C-h> <C-w><C-h>
 
 "Reload config file
 nnoremap <leader>R :source ~/.config/nvim/init.vim<CR>
@@ -128,9 +127,18 @@ nnoremap <leader>eo :lopen<CR>
 nnoremap <leader>ec :lclose<CR>
 
 "---- THEME AND VISUAL -----------------------------------
+" Solarized settings
 colorscheme NeoSolarized
 "Dark background
 set background=dark
+" set termguicolors
+let g:neosolarized_bold = 1
+let g:neosolarized_underline = 1
+let g:neosolarized_italic = 1
+let g:gitgutter_override_sign_column_highlight = 0
+" For tmux
+set t_8f=^[[38;2;%lu;%lu;%lum
+set t_8b=^[[48;2;%lu;%lu;%lum
 "Use | for splits
 set fillchars=vert:\│
 "Set cursor to switch between block and line
@@ -139,10 +147,10 @@ set fillchars=vert:\│
 au VimLeave * set guicursor=a:ver2
 
 "INDENTLINE
-"show tab indentation with |
-let g:indentLine_char = '|'
-"colour of indent
-let g:indentLine_color_term = 239
+""show tab indentation with |
+"let g:indentLine_char = '|'
+""colour of indent
+"let g:indentLine_color_term = 239
 
 "---- LANGUAGE MODES -------------------------------------
 "LATEX
@@ -155,19 +163,15 @@ set spelllang=en_gb spell
 "---- FILE NAVIGATION ------------------------------------
 "FZF
 "Search home
-nnoremap <C-a> :FZF! ~ <CR>
+nnoremap <leader>ff :FZF! ~ <CR>
 "Search MRU
-nnoremap <C-x> :History! ~<CR>
+nnoremap <leader>fr :History! ~<CR>
 "Search project
-nnoremap <C-p> :GitFiles <CR>
+nnoremap <leader>fp :GitFiles <CR>
 "Buffer list
-nnoremap <C-b> :Buffers <CR>
-"Lines in open buffers
-nnoremap <C-f> :Lines <CR>
-"Search ctags
-"nnoremap <C-t> :Tags <CR>
+nnoremap <leader>fb :Buffers <CR>
 "Search commands
-nnoremap <C-c> :Commands! <CR>
+nnoremap <leader>? :Commands! <CR>
 
 "RANGER.VIM
 "Define own launch key
@@ -194,13 +198,15 @@ nnoremap <leader>gd :Gdiff <CR>
 
 
 "---- TEXT MANIPULATION -----------------------------------
-"DELIMINATE
-"Jump brackets and quotes with S-Tab
-let delimitMate_jump_expansion = 1
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" map f <Plug>Sneak_s
+" map F <Plug>Sneak_S
 
-let g:org_agenda_files = ['~/Documents/org/*.org']
+" let g:sneak#s_next = 1
+" let g:sneak#label = 1
+"
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
