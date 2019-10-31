@@ -1,40 +1,44 @@
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
+;; This file is loaded by Spacemacs at startup.
+;; It must be stored in your home directory.
+
 (defun dotspacemacs/layers ()
-  "Configuration Layers declaration.
-You should not put any user code in this function besides modifying the variable
-values."
+  "Layer configuration:
+This function should only modify configuration layer settings."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
+
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
    ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
    ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
    ;; lazy install any layer that support lazy installation even the layers
-   ;; installation feature and you have to explicitly list a layer in the
    ;; listed in `dotspacemacs-configuration-layers'. `nil' disable the lazy
+   ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
    dotspacemacs-enable-lazy-installation 'unused
+
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
+
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; exwm
-     octave
-     ;; csv
+     html
      helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
@@ -56,6 +60,7 @@ values."
             ;; shell-default-height 30
             ;; shell-default-position 'right
             shell-default-position 'full
+            shell-default-shell 'eshell
             )
      spell-checking
      ;; (spell-checking :variables
@@ -81,7 +86,7 @@ values."
                                       ;; snippets library
                                       yasnippet-snippets
                                       ;; yanking highlights
-                                      evil-goggles
+                                      ;; evil-goggles
                                       ;; ipython support org mode
                                       ob-ipython
                                       ;; Used for pomodoro alarm
@@ -91,7 +96,7 @@ values."
                                       ;; make helm even fuzzier
                                       ;; helm-fuzzier
                                       ;; notes from pdfs with org
-                                      ;; org-noter
+                                      org-noter
                                       ;; Some ref done well
                                       org-ref
                                       ;; org-journal
@@ -99,8 +104,9 @@ values."
                                       ;; gpastel
                                       ;; pass interface for helm
                                       ;; helm-pass
+                                      zenburn-theme
                                       solarized-theme
-                                      helm-system-packages
+
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -124,11 +130,12 @@ values."
                                     ;; winum
                                     volatile-highlights
                                     ;; eyebrowse
-                                    ivy
+                                    ;; ivy
                                     ;; dumb-jump
                                     speedbar
-                                    ;; fancy-battery
+                                    fancy-battery
                                     doc-view
+                                    spaceline
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages. Possible
    ;; values are `used-only', `used-but-keep-unused' and `all'. `used-only'
@@ -199,22 +206,29 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ;; solarized
+                         leuven
                          solarized-dark
                          solarized-light
-                         ;; spacemacs-dark
-                         ;; leuven
                          )
+
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
+   ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
+   ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
+   ;; refer to the DOCUMENTATION.org for more info on how to create your own
+   ;; spaceline theme. Value can be a symbol or list with additional properties.
+   ;; (default '(spacemacs :separator wave :separator-scale 1.5))
+   dotspacemacs-mode-line-theme '(vanilla :separator nil :separator-scale 0.5)
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "Source Code Pro"
-                               :size 16
+                               :size 17
                                :width normal
-                               :weight normal
-                               :powerline-scale 0.8)
+                               :weight normal)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -387,25 +401,24 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
   ;; ------------------------------------------------------------
   ;; GENERAL
   ;; ------------------------------------------------------------
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-battery-on)
-  (spaceline-toggle-buffer-position-off)
-  (spaceline-toggle-buffer-encoding-abbrev-off)
-  (spaceline-toggle-hud-off)
-  (spaceline-toggle-line-column-off)
-  (spaceline-toggle-process-off)
-  (spaceline-toggle-workspace-number-on)
-  (spaceline-toggle-purpose-off)
-  (setq display-time-format "%H:%M %a %d/%m")
-  (setq display-time-default-load-average nil)
-  (spacemacs/toggle-display-time-on)
-  (fancy-battery-mode)
-  (setq powerline-default-separator 'nil)
   (setq vc-follow-symlinks t)
+
+  ;; (spaceline-toggle-buffer-size-off)
+  ;; (spaceline-toggle-battery-on)
+  ;; (spaceline-toggle-buffer-position-off)
+  ;; (spaceline-toggle-buffer-encoding-abbrev-off)
+  ;; (spaceline-toggle-hud-off)
+  ;; (spaceline-toggle-line-column-off)
+  ;; (spaceline-toggle-process-off)
+  ;; (spaceline-toggle-workspace-number-on)
+  ;; (spaceline-toggle-purpose-off)
+  ;; (setq display-time-format "%H:%M %a %d/%m")
+  ;; (setq display-time-default-load-average nil)
+  ;; (spacemacs/toggle-display-time-on)
+  ;; (fancy-battery-mode)
   ;; Turn on agressive indent mode globally except:
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
@@ -417,29 +430,8 @@ you should place your code here."
   ;; Use fd
   (setq ffip-use-rust-fd t)
   ;; auto highlight-indentation-mode
-  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
+  ;; (add-hook 'prog-mode-hook 'highlight-indentation-mode)
 
-  ;; ------------------------------------------------------------
-  ;; PACKAGES - EXWM
-  ;; ------------------------------------------------------------
-  ;; (setq exwm-workspace-number 5)
-
-  ;; (defun exwm-input-line-mode ()
-  ;;   "set exwm window to line-mode and show mode line"
-  ;;   (call-interactively #'exwm-input-grab-keyboard)
-  ;;   ;; (exwm-layout-show-mode-line)
-  ;; exwm-input-toggle-mode ()
-  ;;   "Toggle between line- and char-mode"
-  ;;   (with-current-buffer (window-buffer)
-  ;;     (when (eq major-mode 'exwm-mode)
-  ;;       (if (equal (second (second mode-line-process)) "line")
-  ;;           (exwm-input-char-mode)
-  ;;         (exwm-input-line-mode)))))
-
-  ;; ------------------------------------------------------------
-  ;; PACKAGE - GPASTE
-  ;; ------------------------------------------------------------
-  ;; (gpastel-mode t)
 
   ;; ------------------------------------------------------------
   ;; PACKAGE - EVIL-GOGGLES
@@ -447,13 +439,7 @@ you should place your code here."
   ;; Highlighted yank etc
   (evil-goggles-mode)
   ;; Highlighted time
-  (setq evil-goggles-duration 0.100)
-
-  ;; ------------------------------------------------------------
-  ;; PACKAGE - HELM-FUZZIER
-  ;; ------------------------------------------------------------
-  ;; enable helm fuzzier
-  ;; (helm-fuzzier-mode 1)
+  ;; (setq evil-goggles-duration 1.500)
 
   ;; ------------------------------------------------------------
   ;; PACKAGE - LATEX
@@ -468,35 +454,35 @@ you should place your code here."
             #'TeX-revert-document-buffer)
 
   ;; ------------------------------------------------------------
-  ;; package - org mode
+  ;; PACKAGE - ORG MODE
   ;; ------------------------------------------------------------
   ;; basic
   ;; where is the org directory
-  (setq org-directory "~/Documents/org")
+  (setq org-directory "~/docs/org")
   ;; where are the agenda files
-  (setq org-agenda-files (list "~/Documents/org/todo.org"))
+  (setq org-agenda-files (list "~/docs/org"))
   ;; where to capture by default
-  (setq org-default-notes-file "~/Documents/org/notes.org")
+  (setq org-default-notes-file "~/docs/org/notes.org")
   ;; open agenda in current window
   (setq org-agenda-window-setup (quote current-window))
   ;; dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d!)")))
+        '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d!)")))
   (setq org-agenda-tags-column 0)
   (setq org-tags-column 0)
 
   ;; org-capture
   (setq org-capture-templates
-        '(("t" "task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+        '(("t" "task" entry (file+headline "~/docs/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("T" "task linked" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+          ("T" "task linked" entry (file+headline "~/docs/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("d" "calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+          ("d" "calendar" entry (file+headline "~/docs/org/todo.org" "Calendar")
            "* %? \n  %i")
-          ("D" "calendar linked" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+          ("D" "calendar linked" entry (file+headline "~/docs/org/todo.org" "Calendar")
            "* %? \n  %i %a")
-          ("n" "note" entry (file+headline "~/Documents/org/notes.org" "Notes")
+          ("n" "note" entry (file+headline "~/docs/org/notes.org" "Notes")
            "* %? \n  %i")
           ))
 
@@ -522,7 +508,7 @@ you should place your code here."
 
   ;; org-clock-report
   (setq org-agenda-clockreport-parameter-plist
-        (quote (:link t :maxlevel 4 :fileskip0 t :compact t :narrow 80 :formula %)))
+        (quote (:link t :maxlevel 4 :fileskip0 t :tags :compact t :narrow 80 :formula %)))
 
   ;; org-pomodoro
   (setq org-pomodoro-length 60)
@@ -532,32 +518,30 @@ you should place your code here."
 
   ;; ORG-SRC
   (setq org-fontify-quote-and-verse-blocks t)
-  '(org-block ((t (:foreground "#2E8B57"))))
-  ;; fontify code in source code blocks
   (setq org-src-fontify-natively t)
   ;; better latex in org mode for maths
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation t)
 
   ;; ORG-DOWNLOAD
   ;; download images
   (add-hook 'dired-mode-hook 'org-download-enable)
-
-  ;; ORG-TEMPO
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("ip" . "src ipython :session :exports both :results output"))
 
 
 
   ;; ------------------------------------------------------------
   ;; PACKAGE - ORG-BABEL
   ;; ------------------------------------------------------------
-  (org-babel-do-load-languages 'org-babel-load-languages '((ipython . t)
-                                                           (python . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (ipython . t)
+     ))
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
   ;; Dont ask about running code in org mode
   (setq org-confirm-babel-evaluate nil)
-  ;; display/update images in the buffer after I evaluate
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-  ;; Scale up latex eq rendering
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.6))
 
 
@@ -565,10 +549,12 @@ you should place your code here."
   ;; PACKAGE - ORG-REF
   ;; ------------------------------------------------------------
   ;; see org-ref for use of these variables
-  (setq org-ref-bibliography-notes "~/Documents/articles"
-        org-ref-default-bibliography '("~/Documents/articles/references.bib")
-        org-ref-pdf-directory "~/Documents/articles/")
+  (setq reftex-default-bibliography '("~/docs/articles/references.bib"))
+  (setq org-ref-bibliography-notes "~/docs/articles"
+        org-ref-default-bibliography '("~/docs/articles/references.bib")
+        org-ref-pdf-directory "~/docs/articles/")
   ;; Tell org-ref to let helm-bibtex find notes for it
+  ;;Setting up notes to work with multiple notes.org files
   (setq org-ref-notes-function
         (lambda (thekey)
           (let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
@@ -584,25 +570,20 @@ you should place your code here."
   ;; PACKAGE - HELM-BIBTEX
   ;; ------------------------------------------------------------
   ;; helm completion for org-ref
-  (setq bibtex-completion-bibliography "~/Documents/articles/references.bib"
-        bibtex-completion-library-path "~/Documents/articles"
-        bibtex-completion-notes-path "~/Documents/articles"
+  (setq bibtex-completion-bibliography "~/docs/articles/references.bib"
+        bibtex-completion-library-path "~/docs/articles"
+        bibtex-completion-notes-path "~/docs/articles"
         bibtex-completion-notes-extension ".org")
 
 
-  ;; ------------------------------------------------------------ PACKAGE - MU4E
-  ;; ------------------------------------------------------------ MU4E - GENERAL
-  ;; Modeliine notifications
-  ;; (setq mu4e-enable-notifications t)
-  ;; (setq mu4e-enable-mode-line t)
-  ;; (with-eval-after-load 'mu4e-alert
-  ;;   ;; Enable Desktop notifications
-  ;;   (mu4e-alert-set-default-style 'notifications)) ; For linux
+  ;; ------------------------------------------------------------
+  ;; PACKAGE - MU4E
+  ;; ------------------------------------------------------------
   (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
   ;;store link to message if in header view, not to header query
   (setq org-mu4e-link-query-in-headers-mode nil)
   ;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/Maildir"
+  (setq mu4e-maildir "~/.maildir"
         mu4e-trash-folder "/Trash"
         mu4e-refile-folder "/Archive"
         mu4e-get-mail-command "offlineimap"
@@ -611,18 +592,38 @@ you should place your code here."
         mu4e-view-show-images t
         mu4e-view-show-addresses t)
 
+  ;; (setq mu4e-contexts
+  ;;       `( ,(make-mu4e-context
+  ;;            :name "gmail"
+  ;;            :match-func (lambda (msg) (when msg
+  ;;                                        (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
+  ;;            :vars '(
+  ;;                    (mu4e-trash-folder . "/gmail/[Gmail].Trash")
+  ;;                    (mu4e-refile-folder . "/gmail/[Gmail].Archive")
+  ;;                    ))
+  ;;          ,(make-mu4e-context
+  ;;            :name "usyd"
+  ;;            :match-func (lambda (msg) (when msg
+  ;;                                        (string-prefix-p "/usyd" (mu4e-message-field msg :maildir))))
+  ;;            :vars '(
+  ;;                    (mu4e-trash-folder . "/usyd/Deleted Items")
+  ;;                    (mu4e-refile-folder . usyd-mu4e-refile-folder)
+  ;;                    ))
+  ;;          ))
+
+
   ;; MU4E - ACCOUNTS
   (setq mu4e-account-alist
         '(("gmail"
            ;; Under each account, set the account-specific variables you want.
            (mu4e-sent-messages-behavior delete)
-           (mu4e-sent-folder "/gmail/[Gmail].Sent Mail")
-           (mu4e-drafts-folder "/gmail/[Gmail].Drafts")
+           (mu4e-sent-folder "/gmail/Sent")
+           (mu4e-drafts-folder "/gmail/Drafts")
            (user-mail-address "matthewdeancooper@gmail.com")
-           (user-full-name "matthew"))
+           (user-full-name "Matthew"))
           ("usyd"
            (mu4e-sent-messages-behavior sent)
-           (mu4e-sent-folder "/usyd/Sent Items")
+           (mu4e-sent-folder "/usyd/Sent")
            (mu4e-drafts-folder "/usyd/Drafts")
            (user-mail-address "mcoo3379@uni.sydney.edu.au")
            (user-full-name "Matthew"))))
@@ -641,89 +642,74 @@ you should place your code here."
   ;; FUNCTIONS - SCIMAX
   ;; ------------------------------------------------------------
   ;; Renumber org-latex equations
-  (defun org-renumber-environment (orig-func &rest args)
-    (let ((results '())
-          (counter -1)
-          (numberp))
-      (setq results (loop for (begin .  env) in
-                          (org-element-map (org-element-parse-buffer) 'latex-environment
-                            (lambda (env)
-                              (cons
-                               (org-element-property :begin env)
-                               (org-element-property :value env))))
-                          collect
-                          (cond
-                           ((and (string-match "\\\\begin{equation}" env)
-                                 (not (string-match "\\\\tag{" env)))
-                            (incf counter)
-                            (cons begin counter))
-                           ((string-match "\\\\begin{align}" env)
-                            (prog2
-                                (incf counter)
-                                (cons begin counter)
-                              (with-temp-buffer
-                                (insert env)
-                                (goto-char (point-min))
-                                ;; \\ is used for a new line. Each one leads to a number
-                                (incf counter (count-matches "\\\\$"))
-                                ;; unless there are nonumbers.
-                                (goto-char (point-min))
-                                (decf counter (count-matches "\\nonumber")))))
-                           (t
-                            (cons begin nil)))))
-      (when (setq numberp (cdr (assoc (point) results)))
-        (setf (car args)
-              (concat
-               (format "\\setcounter{equation}{%s}\n" numberp)
-               (car args)))))
-    (apply orig-func args))
-  (advice-add 'org-create-formula-image :around #'org-renumber-environment)
+  ;; (defun org-renumber-environment (orig-func &rest args)
+  ;;   (let ((results '())
+  ;;         (counter -1)
+  ;;         (numberp))
+  ;;     (setq results (loop for (begin .  env) in
+  ;;                         (org-element-map (org-element-parse-buffer) 'latex-environment
+  ;;                           (lambda (env)
+  ;;                             (cons
+  ;;                              (org-element-property :begin env)
+  ;;                              (org-element-property :value env))))
+  ;;                         collect
+  ;;                         (cond
+  ;;                          ((and (string-match "\\\\begin{equation}" env)
+  ;;                                (not (string-match "\\\\tag{" env)))
+  ;;                           (incf counter)
+  ;;                           (cons begin counter))
+  ;;                          ((string-match "\\\\begin{align}" env)
+  ;;                           (prog2
+  ;;                               (incf counter)
+  ;;                               (cons begin counter)
+  ;;                             (with-temp-buffer
+  ;;                               (insert env)
+  ;;                               (goto-char (point-min))
+  ;;                               ;; \\ is used for a new line. Each one leads to a number
+  ;;                               (incf counter (count-matches "\\\\$"))
+  ;;                               ;; unless there are nonumbers.
+  ;;                               (goto-char (point-min))
+  ;;                               (decf counter (count-matches "\\nonumber")))))
+  ;;                          (t
+  ;;                           (cons begin nil)))))
+  ;;     (when (setq numberp (cdr (assoc (point) results)))
+  ;;       (setf (car args)
+  ;;             (concat
+  ;;              (format "\\setcounter{equation}{%s}\n" numberp)
+  ;;              (car args)))))
+  ;;   (apply orig-func args))
+  ;; (advice-add 'org-create-formula-image :around #'org-renumber-environment)
 
 
   ;; ------------------------------------------------------------
   ;; KEYBINDINGS
   ;; ------------------------------------------------------------
-  ;; note C-SPC = mark in helm buffer
-  ;; (exwm-input-set-key (kbd "s-r") 'exwm-reset)
-  ;; (exwm-input-set-key (kbd "s-SPC") 'spacemacs/exwm-app-launcher)
-  ;; (exwm-input-set-key (kbd "s-i") (lambda () (interactive) (exwm-input-toggle-mode)))
-  ;; (exwm-input-set-key (kbd "s-s") (lambda () (interactive) (shell-command "slock")))
-  ;; (exwm-input-set-key (kbd "s-p") 'helm-pass)
-  ;; (exwm-input-set-key (kbd "<f1>") (lambda () (interactive) (shell-command "pactl set-sink-mute 0 toggle")))
-  ;; (exwm-input-set-key (kbd "<f2>") (lambda () (interactive) (shell-command "pactl -- set-sink-volume 0 -5%")))
-  ;; (exwm-input-set-key (kbd "<f3>") (lambda () (interactive) (shell-command "pactl -- set-sink-volume 0 +5%")))
-  ;; (exwm-input-set-key (kbd "<f5>") (lambda () (interactive) (shell-command "light -U 5")))
-  ;; (exwm-input-set-key (kbd "<f6>") (lambda () (interactive) (shell-command "light -A 5")))
-  ;; (exwm-input-set-key (kbd "<f8>") (lambda () (interactive) (shell-command "networkmanager_dmenu")))
-  ;; (exwm-input-set-key (kbd "<f11>") (lambda () (interactive) (shell-command "mydualscreen")))
-  ;; (exwm-input-set-key (kbd "<f12>") (lambda () (interactive) (shell-command "mykeymap")))
-
-  (eyebrowse-setup-opinionated-keys 'IGNORE-EVIL)
-  ;; (eyebrowse-setup-evil-keys)
-  (global-set-key (kbd "M-]") 'next-buffer)
-  (global-set-key (kbd "M-[") 'previous-buffer)
-  (global-set-key (kbd "M-d") 'evil-window-delete)
-  (global-set-key (kbd "C-j") 'evil-avy-goto-char-timer)
-  (global-set-key (kbd "C-y") 'helm-show-kill-ring)
-  ;; (global-set-key (kbd "C-l") 'evil-window-right)
-  ;; (global-set-key (kbd "C-h") 'evil-window-left)
-  ;; (global-set-key (kbd "C-j") 'evil-window-down)
-  ;; (global-set-key (kbd "C-k") 'evil-window-up)
-  (global-set-key (kbd "<C-return>") 'spacemacs/default-pop-shell)
-  (spacemacs/declare-prefix "o" "own-menu")
-  (spacemacs/set-leader-keys "ob" 'helm-bibtex)
-  (spacemacs/set-leader-keys "on" 'org-noter)
-  (spacemacs/set-leader-keys "ol" 'cdlatex-environment)
-  (spacemacs/set-leader-keys "om" 'menu-bar-mode)
+  ;; (spacemacs/declare-prefix "o" "own-menu")
+  (spacemacs/set-leader-keys "aon" 'org-noter)
+  ;; (spacemacs/set-leader-keys "ol" 'cdlatex-environment)
+  ;; (spacemacs/set-leader-keys "om" 'menu-bar-mode)
   (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
-  (spacemacs/set-leader-keys "jt" 'avy-goto-char-timer)
   (spacemacs/set-leader-keys "pf" 'helm-projectile-find-file-in-known-projects)
   (spacemacs/set-leader-keys "hm" 'helm-mark-ring)
-  (global-set-key (kbd "M-p") (lambda () (interactive) (set-mark-command 4)))
+  (spacemacs/set-leader-keys "hy" 'helm-show-kill-ring)
+  (spacemacs/set-leader-keys "hb" 'helm-bibtex)
 
-  (setq solarized-scale-org-headlines nil)
-  (setq solarized-use-variable-pitch nil)
-  (load-theme 'solarized-dark t)
+  (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
+  (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
+  (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
+  (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)
+  (global-set-key (kbd "s-5") 'eyebrowse-switch-to-window-config-5)
+
+
+  ;; sudo completion for eshell
+  (defun pcomplete/sudo ()
+    (let ((prec (pcomplete-arg 'last -1)))
+      (cond ((string= "sudo" prec)
+             (while (pcomplete-here*
+                     (funcall pcomplete-command-completion-function)
+                     (pcomplete-arg 'last) t))))))
+
+
   )
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
@@ -735,10 +721,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(evil-want-Y-yank-to-eol t)
-   '(package-selected-packages
-     (quote
-      (web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode emmet-mode counsel-css counsel swiper company-web web-completion-data add-node-modules-path yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode which-key uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons sound-wav solarized-theme smeargle shell-pop restart-emacs pytest pyenv-mode py-isort popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer orgit org-ref org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file ob-ipython nameless mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint insert-shebang indent-guide importmagic hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-system-packages helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-c-style gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy font-lock+ flyspell-correct-helm flycheck-rtags flycheck-pos-tip flycheck-package flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs define-word cython-mode cpp-auto-include company-statistics company-shell company-rtags company-reftex company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format centered-cursor-mode cdlatex browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
+   )
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

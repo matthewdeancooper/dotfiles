@@ -30,38 +30,25 @@ setopt appendhistory autocd extendedglob vi COMPLETE_ALIASES
 #------------------------------
 # Theming
 #------------------------------
-# Prompt
-# autoload -Uz promptinit
-# promptinit
-# prompt suse
 setopt PROMPT_SUBST
 PROMPT='${PWD/#$HOME/~} '
 #
 #------------------------------
 # alias
 #------------------------------
+alias v="nvim"
 alias vim="nvim"
-# alias mutt="neomutt"
+alias r="ranger"
 alias la="ls -A"
-# alias gh="cd ~"
-# alias g/="cd /"
-# alias gdow="cd ~/Downloads"
-# alias gdoc="cd ~/Documents"
-# alias gdot="cd ~/dotfiles"
-# alias ggit="cd ~/git"
-# alias gpic="cd ~/Pictures"
-# alias gbin="cd ~/bin"
-# alias gmed="cd ~/Documents/medical-physics"
-# alias gtext="cd ~/Documents/textbooks"
-# alias gmp="cd ~/Documents/medical-physics"
 alias smci="sudo make clean install"
-# alias tns="tmux new -s"
-# alias tls="tmux list-sessions"
-# alias tks="tmux kill-session"
-# alias tka="tmux kill-server"
-# alias gac="git add * && git commit -m 'update' "
-# alias mail="offlineimap -a usyd && mutt"
-# alias ec="emacsclient -c"
+alias pku="sudo pacman -Syu"
+alias pki="sudo pacman -S"
+alias pkr="sudo pacman -Rs"
+alias pko="pacman -Qtd"
+alias pkf="pacman -Qm"
+alias pke="comm -23 <(pacman -Qqt | sort) <(pacman -Sqg base base-devel | sort)"
+alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+
 #------------------------------
 # Functions
 #------------------------------
@@ -71,13 +58,6 @@ function chpwd() {
     # ls
 	tree -L 1
 }
-
-# # add sudo to buffer
-# function add-sudo(){
-#   LBUFFER="$sudo {LBUFFER}"
-# }
-# zle -N add-sudo
-
 
 
 # Change cursor shape for vi mode
@@ -92,90 +72,43 @@ zle -N zle-keymap-select
 # Start with beam shape cursor on zsh startup and after every command.
 zle-line-init() { zle-keymap-select 'beam'}
 
+em()
+{
+    args=""
+    nw=false
+    # check if emacsclient is already running
+    if pgrep -U $(id -u) emacsclient > /dev/null; then running=true; fi
 
-# # Bookmarks
-# function mark() {
-# 		bookmark=$(pwd)
-# 		echo $bookmark >> ~/.marks
-# }
+    # check if the user wants TUI mode
+    for arg in "$@"; do
+    	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
+	then
+    	    nw=true
+    	fi
+    done
 
-# function fmark() {
-# 		bookmark=$(cat ~/.marks | fzf)
-# 		cd "$bookmark"
-# }
+    # if called without arguments - open a new gui instance
+    if [ "$#" -eq "0" ] || [ "$running" != true ]; then
+	args=(-c $args) 		# open emacsclient in a new window
+    fi
+    if [ "$#" -gt "0" ]; then
+	# if 'em -' open standard input (e.g. pipe)
+	if [[ "$1" == "-" ]]; then
+    	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
+    	    cat >$TMP
+	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
+	else
+	    args=($@ $args)
+	fi
+    fi
 
-
-# # fuzzy find and open with vim
-# fvim() {
-#     local out file key
-#     IFS=$'\n' out=($(fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-#     key=$(head -1 <<< "$out")
-#     file=$(head -2 <<< "$out" | tail -1)
-#     if [ -n "$file" ]; then
-#         [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-#     fi
-# }
-
-# # fuzzy find pdfs
-function fpdf() {
-    local out file key
-    IFS=$'\n' out=($(fd . ~/Documents -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-    key=$(head -1 <<< "$out")
-    file=$(head -2 <<< "$out" | tail -1)
-    if [ -n "$file" ]; then
-        [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
+    # emacsclient $args
+    if $nw; then
+	emacsclient "${args[@]}"
+    else
+	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
     fi
 }
-
-function ftext() {
-    local out file key
-    IFS=$'\n' out=($(fd . ~/Documents/textbooks -e pdf | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-    key=$(head -1 <<< "$out")
-    file=$(head -2 <<< "$out" | tail -1)
-    if [ -n "$file" ]; then
-        [ "$key" = ctrl-o ] && open "$file" || ${READER} "$file" &
-    fi
-}
-
-# # fuzzy find dotfiles and open with vim
-# function fdot() {
-#   local out file key
-#   IFS=$'\n' out=($(fd . ~/dotfiles | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-#   key=$(head -1 <<< "$out")
-#   file=$(head -2 <<< "$out" | tail -1)
-#   if [ -n "$file" ]; then
-#     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-#   fi
-# }
-
-# # fuzzy find Documents and open with vim
-# function fdoc() {
-#   local out file key
-#   IFS=$'\n' out=($(fd . ~/Documents | fzf --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-#   key=$(head -1 <<< "$out")
-#   file=$(head -2 <<< "$out" | tail -1)
-#   if [ -n "$file" ]; then
-#     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-#   fi
-# }
-
-# # fgit - find my git tracked files
-
-# # fuzzy find directory and cd
-# function fdir() {
-# local directory
-# directory=$(fd . ~ -t d | fzf)
-#   if [[ -n $directory ]]
-#   then
-#      cd -- $directory
-#   fi
-# }
-
-# run_ranger () {
-#     ranger < $TTY
-#     zle reset-prompt
-# }
-# zle -N run_ranger
 #------------------------------
 # Some fzf options
 #------------------------------
@@ -194,23 +127,23 @@ _fzf_compgen_dir() {
 #------------------------------
 # Keybindings
 #------------------------------
-bindkey '^A' autosuggest-accept
-# bindkey '^p' add-sudo
-# bindkey '^R' run_ranger
+bindkey '^o' autosuggest-accept
+
 #------------------------------
 # Source
 #------------------------------
 source ~/.fzf
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/fzf/completion.zsh
-# source /usr/share/fzf/key-bindings.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf-marks/fzf-marks.zsh
 
 #------------------------------
 # Exports
 #------------------------------
 export FZF_COMPLETION_TRIGGER='**'
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 export FZF_DEFAULT_OPTS="--color=16 --layout=reverse --preview '(pdftotext {} - || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_DEFAULT_COMMAND="fd . $HOME"
+
