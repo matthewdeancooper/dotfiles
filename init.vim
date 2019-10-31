@@ -39,7 +39,7 @@ Plug 'junegunn/vim-easy-align' "Easy alignment
 Plug 'tpope/vim-surround' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-repeat' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-commentary' "Multi line comments
-Plug 'dusans/vim-hardmode'
+" Plug 'dusans/vim-hardmode'
 call plug#end()
 
 
