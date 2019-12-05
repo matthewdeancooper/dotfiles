@@ -1,6 +1,6 @@
  # feh --bg-tile ~/media/scrot/Oct05::193718.png
 #------------------------------
-# PATH 
+# PATH
 #------------------------------
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -30,7 +30,7 @@ export READER="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
 #------------------------------
 # Start
 #------------------------------
-# 
+#
 #
 wmname LG3D &
 clipmenud &
@@ -39,7 +39,7 @@ udiskie &
 juiced -d &
 emacs --daemon &
 dunst > /dev/null 2>&1 &
-offlineimap &
+# offlineimap &
 
 while true; do
     dwm >/dev/null 2>&1

@@ -104,7 +104,7 @@ This function should only modify configuration layer settings."
                                       ;; gpastel
                                       ;; pass interface for helm
                                       ;; helm-pass
-                                      zenburn-theme
+                                      ;; zenburn-theme
                                       solarized-theme
 
                                       )
@@ -135,7 +135,7 @@ This function should only modify configuration layer settings."
                                     speedbar
                                     fancy-battery
                                     doc-view
-                                    spaceline
+                                    ;; spaceline
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages. Possible
    ;; values are `used-only', `used-but-keep-unused' and `all'. `used-only'
@@ -206,9 +206,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         leuven
-                         solarized-dark
+                         ;; leuven
                          solarized-light
+                         solarized-dark
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -218,7 +218,7 @@ values."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(vanilla :separator nil :separator-scale 0.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator nil :separator-scale 0.5)
 
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -226,7 +226,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "Source Code Pro"
-                               :size 17
+                               :size 16
                                :width normal
                                :weight normal)
    ;; The leader key

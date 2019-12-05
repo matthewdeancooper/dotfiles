@@ -41,13 +41,13 @@ alias vim="nvim"
 alias r="ranger"
 alias la="ls -A"
 alias smci="sudo make clean install"
-alias pku="sudo pacman -Syu"
-alias pki="sudo pacman -S"
-alias pkr="sudo pacman -Rs"
-alias pko="pacman -Qtd"
-alias pkf="pacman -Qm"
-alias pke="comm -23 <(pacman -Qqt | sort) <(pacman -Sqg base base-devel | sort)"
-alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+
+alias pku="sudo pacman -Syu" #update
+alias pkil="pacman -Qet" #list explicitly installed (no depends)
+alias pki="sudo pacman -S" #install a package
+alias pko="pacman -Qtd" #show orphaned packaged
+alias pkaur="pacman -Qm" #installed by pacman but not in database (ie. AUR)
+alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'" # browse installed packages
 
 #------------------------------
 # Functions
@@ -137,7 +137,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf-marks/fzf-marks.zsh
 
 #------------------------------
 # Exports
