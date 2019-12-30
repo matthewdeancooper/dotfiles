@@ -16,16 +16,16 @@ lux -S 30%
 #------------------------------
 # Variables
 #------------------------------
-export TERM="st-256color"
-# export EDITOR="nvim"
+
+export TERM=xterm-256color
+export EDITOR="nvim"
 export BROWSER="fireox"
 # export READER="zathura"
-# export FILE="ranger"
+export FILE="ranger"
 
-export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
-export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
-export READER="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+# export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
+# export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+# export READER="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
 
 #------------------------------
 # Start
@@ -37,9 +37,10 @@ clipmenud &
 mykeymap &
 udiskie &
 juiced -d &
-emacs --daemon &
+# emacs --daemon &
 dunst > /dev/null 2>&1 &
 # offlineimap &
+ctmp &
 
 while true; do
     dwm >/dev/null 2>&1

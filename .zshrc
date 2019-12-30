@@ -38,16 +38,18 @@ PROMPT='${PWD/#$HOME/~} '
 #------------------------------
 alias v="nvim"
 alias vim="nvim"
-alias r="ranger"
+alias rr="ranger"
 alias la="ls -A"
 alias smci="sudo make clean install"
 
 alias pku="sudo pacman -Syu" #update
-alias pkil="pacman -Qet" #list explicitly installed (no depends)
+alias pkl="pacman -Qet" #list explicitly installed (no depends)
 alias pki="sudo pacman -S" #install a package
 alias pko="pacman -Qtd" #show orphaned packaged
-alias pkaur="pacman -Qm" #installed by pacman but not in database (ie. AUR)
+alias pka="pacman -Qm" #installed by pacman but not in database (ie. AUR)
 alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'" # browse installed packages
+
+alias tls="tmux list-sessions"
 
 #------------------------------
 # Functions
@@ -72,43 +74,43 @@ zle -N zle-keymap-select
 # Start with beam shape cursor on zsh startup and after every command.
 zle-line-init() { zle-keymap-select 'beam'}
 
-em()
-{
-    args=""
-    nw=false
-    # check if emacsclient is already running
-    if pgrep -U $(id -u) emacsclient > /dev/null; then running=true; fi
+# em()
+# {
+#     args=""
+#     nw=false
+#     # check if emacsclient is already running
+#     if pgrep -U $(id -u) emacsclient > /dev/null; then running=true; fi
 
-    # check if the user wants TUI mode
-    for arg in "$@"; do
-    	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
-	then
-    	    nw=true
-    	fi
-    done
+#     # check if the user wants TUI mode
+#     for arg in "$@"; do
+#     	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
+# 	then
+#     	    nw=true
+#     	fi
+#     done
 
-    # if called without arguments - open a new gui instance
-    if [ "$#" -eq "0" ] || [ "$running" != true ]; then
-	args=(-c $args) 		# open emacsclient in a new window
-    fi
-    if [ "$#" -gt "0" ]; then
-	# if 'em -' open standard input (e.g. pipe)
-	if [[ "$1" == "-" ]]; then
-    	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
-    	    cat >$TMP
-	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
-	else
-	    args=($@ $args)
-	fi
-    fi
+#     # if called without arguments - open a new gui instance
+#     if [ "$#" -eq "0" ] || [ "$running" != true ]; then
+# 	args=(-c $args) 		# open emacsclient in a new window
+#     fi
+#     if [ "$#" -gt "0" ]; then
+# 	# if 'em -' open standard input (e.g. pipe)
+# 	if [[ "$1" == "-" ]]; then
+#     	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
+#     	    cat >$TMP
+# 	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
+# 	else
+# 	    args=($@ $args)
+# 	fi
+#     fi
 
-    # emacsclient $args
-    if $nw; then
-	emacsclient "${args[@]}"
-    else
-	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
-    fi
-}
+#     # emacsclient $args
+#     if $nw; then
+# 	emacsclient "${args[@]}"
+#     else
+# 	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
+#     fi
+# }
 #------------------------------
 # Some fzf options
 #------------------------------
@@ -146,3 +148,4 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 export FZF_DEFAULT_OPTS="--color=16 --layout=reverse --preview '(pdftotext {} - || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 
+# eval "$(pyenv init -)"

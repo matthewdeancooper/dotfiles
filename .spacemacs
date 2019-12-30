@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -104,8 +104,9 @@ This function should only modify configuration layer settings."
                                       ;; gpastel
                                       ;; pass interface for helm
                                       ;; helm-pass
-                                      ;; zenburn-theme
+                                      zenburn-theme
                                       solarized-theme
+                                      gruvbox-theme
 
                                       )
    ;; A list of packages that cannot be updated.
@@ -226,7 +227,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "Source Code Pro"
-                               :size 16
+                               :size 18
                                :width normal
                                :weight normal)
    ;; The leader key
@@ -721,7 +722,78 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   )
+   '(compilation-message-face (quote default))
+   '(cua-global-mark-cursor-color "#2aa198")
+   '(cua-normal-cursor-color "#657b83")
+   '(cua-overwrite-cursor-color "#b58900")
+   '(cua-read-only-cursor-color "#859900")
+   '(evil-want-Y-yank-to-eol t)
+   '(fci-rule-color "#eee8d5")
+   '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+   '(highlight-symbol-colors
+     (--map
+      (solarized-color-blend it "#fdf6e3" 0.25)
+      (quote
+       ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+   '(highlight-symbol-foreground-color "#586e75")
+   '(highlight-tail-colors
+     (quote
+      (("#eee8d5" . 0)
+       ("#B4C342" . 20)
+       ("#69CABF" . 30)
+       ("#69B7F0" . 50)
+       ("#DEB542" . 60)
+       ("#F2804F" . 70)
+       ("#F771AC" . 85)
+       ("#eee8d5" . 100))))
+   '(hl-bg-colors
+     (quote
+      ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
+   '(hl-fg-colors
+     (quote
+      ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
+   '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
+   '(nrepl-message-colors
+     (quote
+      ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+   '(package-selected-packages
+     (quote
+      (zenburn-theme gruvbox-theme autothemer vmd-mode mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tagedit symon symbol-overlay string-inflection spaceline-all-the-icons sound-wav solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer orgit org-ref org-projectile org-present org-pomodoro org-noter org-mime org-download org-cliplink org-brain open-junk-file ob-ipython nameless mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint insert-shebang indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-c-style gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy font-lock+ flyspell-correct-helm flycheck-rtags flycheck-pos-tip flycheck-package flycheck-bashate flx-ido fish-mode fill-column-indicator eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs define-word cython-mode cpp-auto-include company-web company-statistics company-shell company-rtags company-reftex company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format centered-cursor-mode cdlatex browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
+   '(pos-tip-background-color "#eee8d5")
+   '(pos-tip-foreground-color "#586e75")
+   '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+   '(term-default-bg-color "#fdf6e3")
+   '(term-default-fg-color "#657b83")
+   '(vc-annotate-background nil)
+   '(vc-annotate-background-mode nil)
+   '(vc-annotate-color-map
+     (quote
+      ((20 . "#dc322f")
+       (40 . "#c8805d801780")
+       (60 . "#bec073400bc0")
+       (80 . "#b58900")
+       (100 . "#a5008e550000")
+       (120 . "#9d0091000000")
+       (140 . "#950093aa0000")
+       (160 . "#8d0096550000")
+       (180 . "#859900")
+       (200 . "#66aa9baa32aa")
+       (220 . "#57809d004c00")
+       (240 . "#48559e556555")
+       (260 . "#392a9faa7eaa")
+       (280 . "#2aa198")
+       (300 . "#28669833af33")
+       (320 . "#279993ccbacc")
+       (340 . "#26cc8f66c666")
+       (360 . "#268bd2"))))
+   '(vc-annotate-very-old-color nil)
+   '(weechat-color-list
+     (quote
+      (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
+   '(xterm-color-names
+     ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
+   '(xterm-color-names-bright
+     ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
