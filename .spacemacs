@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(markdown
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -57,11 +57,8 @@ This function should only modify configuration layer settings."
      ;; ess
      pdf
      (shell :variables
-            ;; shell-default-height 30
-            ;; shell-default-position 'right
-            shell-default-position 'full
-            shell-default-shell 'eshell
-            )
+            shell-default-height 30
+            shell-default-position 'bottom)
      spell-checking
      ;; (spell-checking :variables
      ;; spell-checking-enable-by-default t
@@ -72,17 +69,19 @@ This function should only modify configuration layer settings."
      ;;                  version-control-global-margin t
      ;; version-control-diff-tool 'diff-hl)
      vinegar
-     (mu4e :variables
-           ;; mu4e-enable-notifications t
-           ;; mu4e-enable-mode-line t
-           mu4e-account-alist t)
+     ;; (mu4e :variables
+     ;;       ;; mu4e-enable-notifications t
+     ;;       ;; mu4e-enable-mode-line t
+     ;;       mu4e-account-alist t)
      ;; ranger
+     ;; themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      terminal-here
                                       ;; snippets library
                                       yasnippet-snippets
                                       ;; yanking highlights
@@ -90,7 +89,7 @@ This function should only modify configuration layer settings."
                                       ;; ipython support org mode
                                       ob-ipython
                                       ;; Used for pomodoro alarm
-                                      sound-wav
+                                      ;; sound-wav
                                       ;; latex completion in org
                                       cdlatex
                                       ;; make helm even fuzzier
@@ -104,9 +103,10 @@ This function should only modify configuration layer settings."
                                       ;; gpastel
                                       ;; pass interface for helm
                                       ;; helm-pass
-                                      zenburn-theme
+                                      ;; base16-theme
+                                      ;; zenburn-theme
                                       solarized-theme
-                                      gruvbox-theme
+                                      ;; gruvbox-theme
 
                                       )
    ;; A list of packages that cannot be updated.
@@ -163,7 +163,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -206,11 +206,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
-                         ;; leuven
-                         solarized-light
-                         solarized-dark
-                         )
+   dotspacemacs-themes '(spacemacs-dark
+                         solarized-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -227,7 +224,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '(
                                "Source Code Pro"
-                               :size 18
+                               :size 20
                                :width normal
                                :weight normal)
    ;; The leader key
@@ -459,11 +456,11 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; basic
   ;; where is the org directory
-  (setq org-directory "~/docs/org")
+  (setq org-directory "~/proj/org")
   ;; where are the agenda files
-  (setq org-agenda-files (list "~/docs/org"))
+  (setq org-agenda-files (list "~/proj/org"))
   ;; where to capture by default
-  (setq org-default-notes-file "~/docs/org/notes.org")
+  (setq org-default-notes-file "~/proj/org/notes.org")
   ;; open agenda in current window
   (setq org-agenda-window-setup (quote current-window))
   ;; dont warn me in advance, just on the day
@@ -475,15 +472,15 @@ you should place your code here."
 
   ;; org-capture
   (setq org-capture-templates
-        '(("t" "task" entry (file+headline "~/docs/org/todo.org" "Tasks")
+        '(("t" "task" entry (file+headline "~/proj/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("T" "task linked" entry (file+headline "~/docs/org/todo.org" "Tasks")
+          ("T" "task linked" entry (file+headline "~/proj/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("d" "calendar" entry (file+headline "~/docs/org/todo.org" "Calendar")
+          ("d" "calendar" entry (file+headline "~/proj/org/todo.org" "Calendar")
            "* %? \n  %i")
-          ("D" "calendar linked" entry (file+headline "~/docs/org/todo.org" "Calendar")
+          ("D" "calendar linked" entry (file+headline "~/proj/org/todo.org" "Calendar")
            "* %? \n  %i %a")
-          ("n" "note" entry (file+headline "~/docs/org/notes.org" "Notes")
+          ("n" "note" entry (file+headline "~/proj/org/notes.org" "Notes")
            "* %? \n  %i")
           ))
 
@@ -550,10 +547,10 @@ you should place your code here."
   ;; PACKAGE - ORG-REF
   ;; ------------------------------------------------------------
   ;; see org-ref for use of these variables
-  (setq reftex-default-bibliography '("~/docs/articles/references.bib"))
-  (setq org-ref-bibliography-notes "~/docs/articles"
-        org-ref-default-bibliography '("~/docs/articles/references.bib")
-        org-ref-pdf-directory "~/docs/articles/")
+  (setq reftex-default-bibliography '("~/proj/articles/references.bib"))
+  (setq org-ref-bibliography-notes "~/proj/articles"
+        org-ref-default-bibliography '("~/proj/articles/references.bib")
+        org-ref-pdf-directory "~/proj/articles/")
   ;; Tell org-ref to let helm-bibtex find notes for it
   ;;Setting up notes to work with multiple notes.org files
   (setq org-ref-notes-function
@@ -571,28 +568,30 @@ you should place your code here."
   ;; PACKAGE - HELM-BIBTEX
   ;; ------------------------------------------------------------
   ;; helm completion for org-ref
-  (setq bibtex-completion-bibliography "~/docs/articles/references.bib"
-        bibtex-completion-library-path "~/docs/articles"
-        bibtex-completion-notes-path "~/docs/articles"
+  (setq bibtex-completion-bibliography "~/proj/articles/references.bib"
+        bibtex-completion-library-path "~/proj/articles"
+        bibtex-completion-notes-path "~/proj/articles"
         bibtex-completion-notes-extension ".org")
 
 
   ;; ------------------------------------------------------------
   ;; PACKAGE - MU4E
   ;; ------------------------------------------------------------
-  (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
-  ;;store link to message if in header view, not to header query
-  (setq org-mu4e-link-query-in-headers-mode nil)
-  ;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/.maildir"
-        mu4e-trash-folder "/Trash"
-        mu4e-refile-folder "/Archive"
-        mu4e-get-mail-command "offlineimap"
-        mu4e-update-interval nil
-        mu4e-compose-signature-auto-include nil
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
+  ;; (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
+  ;; ;;store link to message if in header view, not to header query
+  ;; (setq org-mu4e-link-query-in-headers-mode nil)
+  ;; ;; Set up some common mu4e variables
+  ;; (setq mu4e-maildir "~/.maildir"
+  ;;       mu4e-trash-folder "/Trash"
+  ;;       mu4e-refile-folder "/Archive"
+  ;;       mu4e-get-mail-command "offlineimap"
+  ;;       mu4e-update-interval nil
+  ;;       mu4e-compose-signature-auto-include nil
+  ;;       mu4e-view-show-images t
+  ;;       mu4e-view-show-addresses t)
 
+
+  ;; DIDNT USE THIS BLOCK
   ;; (setq mu4e-contexts
   ;;       `( ,(make-mu4e-context
   ;;            :name "gmail"
@@ -613,31 +612,32 @@ you should place your code here."
   ;;          ))
 
 
+  ;; DID USE THIS
   ;; MU4E - ACCOUNTS
-  (setq mu4e-account-alist
-        '(("gmail"
-           ;; Under each account, set the account-specific variables you want.
-           (mu4e-sent-messages-behavior delete)
-           (mu4e-sent-folder "/gmail/Sent")
-           (mu4e-drafts-folder "/gmail/Drafts")
-           (user-mail-address "matthewdeancooper@gmail.com")
-           (user-full-name "Matthew"))
-          ("usyd"
-           (mu4e-sent-messages-behavior sent)
-           (mu4e-sent-folder "/usyd/Sent")
-           (mu4e-drafts-folder "/usyd/Drafts")
-           (user-mail-address "mcoo3379@uni.sydney.edu.au")
-           (user-full-name "Matthew"))))
-  ;; (mu4e/mail-account-reset)
+  ;; (setq mu4e-account-alist
+  ;;       '(("gmail"
+  ;;          ;; Under each account, set the account-specific variables you want.
+  ;;          (mu4e-sent-messages-behavior delete)
+  ;;          (mu4e-sent-folder "/gmail/Sent")
+  ;;          (mu4e-drafts-folder "/gmail/Drafts")
+  ;;          (user-mail-address "matthewdeancooper@gmail.com")
+  ;;          (user-full-name "Matthew"))
+  ;;         ("usyd"
+  ;;          (mu4e-sent-messages-behavior sent)
+  ;;          (mu4e-sent-folder "/usyd/Sent")
+  ;;          (mu4e-drafts-folder "/usyd/Drafts")
+  ;;          (user-mail-address "mcoo3379@uni.sydney.edu.au")
+  ;;          (user-full-name "Matthew"))))
+  ;; ;; (mu4e/mail-account-reset)
 
-  ;; SMTP - FOR SENDING MAIL
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
+  ;; ;; SMTP - FOR SENDING MAIL
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-stream-type 'starttls
+  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-service 587)
+  ;; ;; don't keep message buffers around
+  ;; (setq message-kill-buffer-on-exit t)
 
   ;; ------------------------------------------------------------
   ;; FUNCTIONS - SCIMAX
@@ -702,6 +702,10 @@ you should place your code here."
   (global-set-key (kbd "s-5") 'eyebrowse-switch-to-window-config-5)
 
 
+
+  ;; ------------------------------------------------------------
+  ;; ESHELL
+  ;; ------------------------------------------------------------
   ;; sudo completion for eshell
   (defun pcomplete/sudo ()
     (let ((prec (pcomplete-arg 'last -1)))
@@ -709,6 +713,15 @@ you should place your code here."
              (while (pcomplete-here*
                      (funcall pcomplete-command-completion-function)
                      (pcomplete-arg 'last) t))))))
+
+
+
+  ;; ------------------------------------------------------------
+  ;; PROJECTIVE
+  ;; ------------------------------------------------------------
+  ;; (setq projectile-project-search-path '("~/proj/" "~"))
+  (setq terminal-here-terminal-command '("st"))
+  (global-set-key (kbd "<s-return>") 'terminal-here-launch)
 
 
   )
@@ -722,78 +735,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(compilation-message-face (quote default))
-   '(cua-global-mark-cursor-color "#2aa198")
-   '(cua-normal-cursor-color "#657b83")
-   '(cua-overwrite-cursor-color "#b58900")
-   '(cua-read-only-cursor-color "#859900")
-   '(evil-want-Y-yank-to-eol t)
-   '(fci-rule-color "#eee8d5")
-   '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
-   '(highlight-symbol-colors
-     (--map
-      (solarized-color-blend it "#fdf6e3" 0.25)
-      (quote
-       ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
-   '(highlight-symbol-foreground-color "#586e75")
-   '(highlight-tail-colors
-     (quote
-      (("#eee8d5" . 0)
-       ("#B4C342" . 20)
-       ("#69CABF" . 30)
-       ("#69B7F0" . 50)
-       ("#DEB542" . 60)
-       ("#F2804F" . 70)
-       ("#F771AC" . 85)
-       ("#eee8d5" . 100))))
-   '(hl-bg-colors
-     (quote
-      ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
-   '(hl-fg-colors
-     (quote
-      ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
-   '(hl-paren-colors (quote ("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900")))
-   '(nrepl-message-colors
-     (quote
-      ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
-   '(package-selected-packages
-     (quote
-      (zenburn-theme gruvbox-theme autothemer vmd-mode mmm-mode markdown-toc markdown-mode gh-md emoji-cheat-sheet-plus company-emoji yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify uuidgen use-package unfill treemacs-projectile treemacs-evil toc-org tagedit symon symbol-overlay string-inflection spaceline-all-the-icons sound-wav solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer orgit org-ref org-projectile org-present org-pomodoro org-noter org-mime org-download org-cliplink org-brain open-junk-file ob-ipython nameless mwim multi-term mu4e-maildirs-extension mu4e-alert move-text magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint insert-shebang indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-c-style gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link fuzzy font-lock+ flyspell-correct-helm flycheck-rtags flycheck-pos-tip flycheck-package flycheck-bashate flx-ido fish-mode fill-column-indicator eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline disaster diminish diff-hl devdocs define-word cython-mode cpp-auto-include company-web company-statistics company-shell company-rtags company-reftex company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode clang-format centered-cursor-mode cdlatex browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
-   '(pos-tip-background-color "#eee8d5")
-   '(pos-tip-foreground-color "#586e75")
-   '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
-   '(term-default-bg-color "#fdf6e3")
-   '(term-default-fg-color "#657b83")
-   '(vc-annotate-background nil)
-   '(vc-annotate-background-mode nil)
-   '(vc-annotate-color-map
-     (quote
-      ((20 . "#dc322f")
-       (40 . "#c8805d801780")
-       (60 . "#bec073400bc0")
-       (80 . "#b58900")
-       (100 . "#a5008e550000")
-       (120 . "#9d0091000000")
-       (140 . "#950093aa0000")
-       (160 . "#8d0096550000")
-       (180 . "#859900")
-       (200 . "#66aa9baa32aa")
-       (220 . "#57809d004c00")
-       (240 . "#48559e556555")
-       (260 . "#392a9faa7eaa")
-       (280 . "#2aa198")
-       (300 . "#28669833af33")
-       (320 . "#279993ccbacc")
-       (340 . "#26cc8f66c666")
-       (360 . "#268bd2"))))
-   '(vc-annotate-very-old-color nil)
-   '(weechat-color-list
-     (quote
-      (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
-   '(xterm-color-names
-     ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
-   '(xterm-color-names-bright
-     ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
+   '(org-agenda-files nil))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

@@ -18,7 +18,9 @@ Plug 'machakann/vim-highlightedyank' "some visual feedback on yanked objects
 "LANGUAGE MODES
 Plug 'fs111/pydoc.vim' "python documentation in vim
 Plug 'vim-latex/vim-latex' "latex
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
+Plug 'vim-python/python-syntax'
+
 
 "FILE NAVIGATION
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } "Install fzf
@@ -81,10 +83,10 @@ let mapleader = " "
 nnoremap <silent> <ESC> :nohlsearch<CR>
 "Window commands
 " nnoremap <space> <C-w>
-" nnoremap <C-j> <C-w><C-j>
-" nnoremap <C-k> <C-w><C-k>
-" nnoremap <C-l> <C-w><C-l>
-" nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
 
 "Reload config file
 nnoremap <leader>R :source ~/.config/nvim/init.vim<CR>
@@ -95,7 +97,7 @@ nnoremap <leader>zc :e ~/.zshrc<CR>
 "Jump to tmuxrc
 nnoremap <leader>tc :e ~/.tmux.conf<CR>
 "Jump to pdf 
-nnoremap <leader>pdf :!mupdf main.pdf &<CR>
+" nnoremap <leader>pdf :!mupdf main.pdf &<CR>
 "yank a line (no new line included like yy)
 nnoremap yal ^y$ 
 
@@ -158,6 +160,8 @@ au VimLeave * set guicursor=a:ver2
 let g:tex_flavor = 'latex'
 "Use gb english
 set spelllang=en_gb spell
+"python syntax
+let g:python_highlight_all = 1
 
 
 "---- FILE NAVIGATION ------------------------------------
@@ -209,4 +213,5 @@ nmap ga <Plug>(EasyAlign)
 " let g:sneak#s_next = 1
 " let g:sneak#label = 1
 "
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+

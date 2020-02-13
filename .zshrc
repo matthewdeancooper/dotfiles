@@ -30,8 +30,8 @@ setopt appendhistory autocd extendedglob vi COMPLETE_ALIASES
 #------------------------------
 # Theming
 #------------------------------
-setopt PROMPT_SUBST
-PROMPT='${PWD/#$HOME/~} '
+# setopt PROMPT_SUBST
+# PROMPT='${PWD/#$HOME/~} '
 #
 #------------------------------
 # alias
@@ -51,6 +51,7 @@ alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind '
 
 alias tls="tmux list-sessions"
 
+# alias fm="cd $(cat ~/.marks | fzf)"
 #------------------------------
 # Functions
 #------------------------------
@@ -74,6 +75,16 @@ zle -N zle-keymap-select
 # Start with beam shape cursor on zsh startup and after every command.
 zle-line-init() { zle-keymap-select 'beam'}
 
+fm()
+{
+		cd $(cat ~/.marks | fzf)
+}
+
+mark()
+{
+		echo $(pwd) >> ~/.marks
+
+}
 # em()
 # {
 #     args=""
@@ -149,3 +160,13 @@ export FZF_DEFAULT_OPTS="--color=16 --layout=reverse --preview '(pdftotext {} - 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 
 # eval "$(pyenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source ~/opt/zsh-git-prompt/zshrc.sh 
+# PROMPT='%B%m%~%b$(git_super_status) '
+# PROMPT='%~%b$(git_super_status) '
+PROMPT='$(git_super_status) '
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
