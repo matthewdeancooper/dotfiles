@@ -1,6 +1,5 @@
 "---- PLUG ---------------------------------------
 call plug#begin('~/.local/share/nvim/plugged')
-
 "COMPLETION
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "Completion engine
 Plug 'Shougo/neosnippet.vim' "Snippet engine
@@ -12,7 +11,7 @@ Plug 'neomake/neomake' "Error highlighting
 
 "THEME AND VISUAL
 Plug 'iCyMind/NeoSolarized' "Solarized colour scheme
-Plug 'Yggdroot/indentLine' "Shows tabs lines
+" Plug 'Yggdroot/indentLine' "Shows tabs lines
 Plug 'airblade/vim-gitgutter' "Shows changes from git version in gutter
 Plug 'machakann/vim-highlightedyank' "some visual feedback on yanked objects
 
@@ -42,6 +41,7 @@ Plug 'junegunn/vim-easy-align' "Easy alignment
 Plug 'tpope/vim-surround' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-repeat' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-commentary' "Multi line comments
+" Plug 'dusans/vim-hardmode'
 call plug#end()
 
 
@@ -214,3 +214,4 @@ nmap ga <Plug>(EasyAlign)
 " let g:sneak#label = 1
 "
 " autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+

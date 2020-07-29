@@ -1,68 +1,108 @@
-#------------------------------
-# Base options
-#------------------------------
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/matthew/.zshrc'
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# History
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-# No delay between caps for ctrl and esc
-KEYTIMEOUT=0
+# Path to your oh-my-zsh installation.
+export ZSH="/home/matthew/.oh-my-zsh"
 
-# Completion
-autoload -Uz compinit
-compinit
-# Completion menu
-zstyle ':completion:*' menu select
-# Completion for sudo commands
-zstyle ':completion::complete:*' gain-privileges 1
-# Keep completions updated
-zstyle ':completion:*' rehash true
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
-# Options
-# Use vi mode
-# Use command line switches for alias commands
-setopt appendhistory autocd extendedglob vi COMPLETE_ALIASES
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-#------------------------------
-# Theming
-#------------------------------
-# setopt PROMPT_SUBST
-# PROMPT='${PWD/#$HOME/~} '
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(vi-mode fzf pip cp git zsh-completions zsh-autosuggestions zsh-syntax-highlighting history-substring-search)
+
+# Reload completions for zsh-completions 
+autoload -U compinit && compinit
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
 #
-#------------------------------
-# alias
-#------------------------------
-alias v="nvim"
-alias vim="nvim"
-alias rr="ranger"
-alias la="ls -A"
-alias smci="sudo make clean install"
-
-alias pku="sudo pacman -Syu" #update
-alias pkl="pacman -Qet" #list explicitly installed (no depends)
-alias pki="sudo pacman -S" #install a package
-alias pko="pacman -Qtd" #show orphaned packaged
-alias pka="pacman -Qm" #installed by pacman but not in database (ie. AUR)
-alias pkb="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'" # browse installed packages
-
-alias tls="tmux list-sessions"
-
-# alias fm="cd $(cat ~/.marks | fzf)"
-#------------------------------
-# Functions
-#------------------------------
-# ls on cd
-function chpwd() {
-    emulate -L zsh
-    # ls
-	tree -L 1
-}
-
-
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+alias h="cd ~"
+#
 # Change cursor shape for vi mode
 function zle-keymap-select {
   if [[ $KEYMAP == vicmd ]] || [[ $1 = 'block' ]]; then
@@ -75,53 +115,8 @@ zle -N zle-keymap-select
 # Start with beam shape cursor on zsh startup and after every command.
 zle-line-init() { zle-keymap-select 'beam'}
 
-fm()
-{
-		cd $(cat ~/.marks | fzf)
-}
 
-mark()
-{
-		echo $(pwd) >> ~/.marks
 
-}
-# em()
-# {
-#     args=""
-#     nw=false
-#     # check if emacsclient is already running
-#     if pgrep -U $(id -u) emacsclient > /dev/null; then running=true; fi
-
-#     # check if the user wants TUI mode
-#     for arg in "$@"; do
-#     	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
-# 	then
-#     	    nw=true
-#     	fi
-#     done
-
-#     # if called without arguments - open a new gui instance
-#     if [ "$#" -eq "0" ] || [ "$running" != true ]; then
-# 	args=(-c $args) 		# open emacsclient in a new window
-#     fi
-#     if [ "$#" -gt "0" ]; then
-# 	# if 'em -' open standard input (e.g. pipe)
-# 	if [[ "$1" == "-" ]]; then
-#     	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
-#     	    cat >$TMP
-# 	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
-# 	else
-# 	    args=($@ $args)
-# 	fi
-#     fi
-
-#     # emacsclient $args
-#     if $nw; then
-# 	emacsclient "${args[@]}"
-#     else
-# 	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
-#     fi
-# }
 #------------------------------
 # Some fzf options
 #------------------------------
@@ -129,44 +124,64 @@ mark()
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
+# _fzf_compgen_path() {
+#   fd --hidden --follow --exclude ".git" . "$1"
+# }
+# # Use fd to generate the list for directory completion
+# _fzf_compgen_dir() {
+#   fd --type d --hidden --follow --exclude ".git" . "$1"
+# }
 
 #------------------------------
 # Keybindings
 #------------------------------
 bindkey '^o' autosuggest-accept
 
+
+# Dont need to write cd just dir name
+setopt  autocd autopushd 
+
 #------------------------------
 # Source
 #------------------------------
-source ~/.fzf
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+# source ~/.fzf
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source ~/opt/zsh-git-prompt/zshrc.sh 
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #------------------------------
-# Exports
+# Exports and evals
 #------------------------------
 export FZF_COMPLETION_TRIGGER='**'
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 export FZF_DEFAULT_OPTS="--color=16 --layout=reverse --preview '(pdftotext {} - || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_DEFAULT_COMMAND="fd . $HOME"
-
-# eval "$(pyenv init -)"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source ~/opt/zsh-git-prompt/zshrc.sh 
-# PROMPT='%B%m%~%b$(git_super_status) '
-# PROMPT='%~%b$(git_super_status) '
-PROMPT='$(git_super_status) '
+# export FZF_DEFAULT_COMMAND="fd . $HOME"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
+#------------------------------
+# PROMPT
+#------------------------------
+# setopt PROMPT_SUBST
+# # PROMPT='${PWD/#$HOME/~} '
+# # PROMPT='%B%m%~%b$(git_super_status) '
+# # PROMPT='%~%b$(git_super_status) '
+# PROMPT='$(git_super_status) '
+#
+#
+d='dirs -v | head -10'
+1='cd -'
+2='cd -2'
+3='cd -3'
+4='cd -4'
+5='cd -5'
+6='cd -6'
+7='cd -7'
+8='cd -8'
+9='cd -9'
