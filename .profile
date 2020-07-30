@@ -27,8 +27,7 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 
-
+# Add some user defined paths
 export PATH="$HOME/.poetry/bin:$PATH"
-export PATH=/home/matthew/.local/bin:$PATH
-export PATH="/home/matthew/.pyenv/bin:$PATH"
-export PATH="/home/matthew/Documents/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/Documents/bin:$PATH"
