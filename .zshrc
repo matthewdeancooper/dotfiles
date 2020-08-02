@@ -57,6 +57,9 @@ alias bin="cd ~/Documents/bin"
 alias Documents="cd ~/Documents"
 # Use vim as editor
 alias editor=vim
+alias gs="git status"
+alias gp="git push"
+alias ga="git add -A"
 
 #------------------------------
 # FUNCTIONS
