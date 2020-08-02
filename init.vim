@@ -31,7 +31,7 @@ Plug 'francoiscabrol/ranger.vim' "Ranger integration in vim
 Plug 'rbgrouleff/bclose.vim' "Required for ranger
 Plug 'tpope/vim-unimpaired' "Nice navigating using [ ]
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'jpalardy/vim-slime'
+" Plug 'jpalardy/vim-slime'
 
 "VERSION CONTROL
 Plug 'tpope/vim-fugitive' "git integration in vim
