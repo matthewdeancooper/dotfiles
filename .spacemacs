@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mo e: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -96,7 +96,8 @@ values."
      pdf-tools
      (shell :variables
             shell-default-height 30
-            shell-default-shell 'eshell
+            ;; shell-default-shell 'eshell
+            shell-default-shell 'ansi-term
             shell-default-position 'bottom)
 
      ;; ----------------------------------------------------------------
@@ -133,6 +134,7 @@ values."
                                       ;; pass interface for helm
                                       ;; helm-pass
                                       solarized-theme
+                                      moe-theme
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -153,6 +155,8 @@ values."
                                     speedbar
                                     fancy-battery
                                     doc-view
+                                    spaceline
+                                    org-projectile
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -221,8 +225,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(
+                         spacemacs-dark
+                         spacemacs-light
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -318,11 +324,11 @@ values."
    dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native t
+   dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -415,9 +421,11 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Solarized
   ;; ------------------------------------------------------------
-  (setq solarized-distinct-fringe-background t)
-  (setq solarized-use-variable-pitch nil)
-  (setq solarized-scale-org-headlines nil)
+  ;; (load-them 'solarized-gruvbox-dark t)
+  ;; (setq solarized-distinct-fringe-background t)
+  ;; (setq solarized-use-variable-pitch nil)
+  ;; (setq solarized-scale-org-headlines nil)
+  ;; (setq solarized-high-contrast-mode-line t)
 
   ;; ------------------------------------------------------------
   ;; Other
@@ -430,7 +438,7 @@ you should place your code here."
 
   (global-aggressive-indent-mode 1)
 
-  (setq powerline-default-separator 'nil)
+  ;; (setq powerline-default-separator 'arrow)
   ;; ------------------------------------------------------------
   ;; Git
   ;; ------------------------------------------------------------
@@ -582,7 +590,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (solarized-theme mmm-mode markdown-toc markdown-mode gh-md vterm auctex-latexmk zenburn-theme gruvbox-theme autothemer base16-theme evil-goggles yasnippet-snippets terminal-here org-noter web-mode tagedit slim-mode scss-mode sass-mode pug-mode org-ref pdf-tools key-chord ivy tablist insert-shebang helm-css-scss helm-bibtex bibtex-completion parsebib haml-mode fish-mode emmet-mode disaster company-web web-completion-data company-shell company-quickhelp company-c-headers company-auctex cmake-mode clang-format biblio biblio-core auctex yapfify xterm-color unfill smeargle shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (solarized-gruvbox-dark-theme solarized-theme mmm-mode markdown-toc markdown-mode gh-md vterm auctex-latexmk zenburn-theme gruvbox-theme autothemer base16-theme evil-goggles yasnippet-snippets terminal-here org-noter web-mode tagedit slim-mode scss-mode sass-mode pug-mode org-ref pdf-tools key-chord ivy tablist insert-shebang helm-css-scss helm-bibtex bibtex-completion parsebib haml-mode fish-mode emmet-mode disaster company-web web-completion-data company-shell company-quickhelp company-c-headers company-auctex cmake-mode clang-format biblio biblio-core auctex yapfify xterm-color unfill smeargle shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

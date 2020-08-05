@@ -27,11 +27,12 @@ Plug 'vim-python/python-syntax'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } "Install fzf
 Plug 'junegunn/fzf.vim' "Fuzzy searching in vim with extra features
 "Installed exuberant-tags for use with fzf
-Plug 'francoiscabrol/ranger.vim' "Ranger integration in vim
-Plug 'rbgrouleff/bclose.vim' "Required for ranger
+" Plug 'francoiscabrol/ranger.vim' "Ranger integration in vim
+" Plug 'rbgrouleff/bclose.vim' "Required for ranger
 Plug 'tpope/vim-unimpaired' "Nice navigating using [ ]
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'jpalardy/vim-slime'
+Plug 'https://github.com/tpope/vim-vinegar.git'
 
 "VERSION CONTROL
 Plug 'tpope/vim-fugitive' "git integration in vim
@@ -42,6 +43,7 @@ Plug 'junegunn/vim-easy-align' "Easy alignment
 Plug 'tpope/vim-surround' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-repeat' "Use for add/remove bracket/quotes
 Plug 'tpope/vim-commentary' "Multi line comments
+Plug 'meain/vim-printer'
 call plug#end()
 
 
