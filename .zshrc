@@ -60,6 +60,7 @@ alias editor=vim
 alias gs="git status"
 alias gp="git push"
 alias ga="git add -A"
+alias mg="mgitstatus"
 
 #------------------------------
 # FUNCTIONS
