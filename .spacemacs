@@ -31,7 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -47,10 +46,10 @@ values."
      ;; ----------------------------------------------------------------
      ;; Completion
      ;; ----------------------------------------------------------------
+     helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip 'manual)
-     helm
 
      ;; ----------------------------------------------------------------
      ;; Emacs
@@ -73,6 +72,7 @@ values."
      ;; ----------------------------------------------------------------
      bibtex
      latex
+     markdown
      html
      shell-scripts
      (python :variables
@@ -82,7 +82,7 @@ values."
              python-formatter 'yapf
              python-format-on-save t
              python-sort-imports-on-save t)
-     ;; c-c++
+     c-c++
 
      ;; ----------------------------------------------------------------
      ;; Source control
@@ -101,9 +101,10 @@ values."
             shell-default-position 'bottom)
 
      ;; ----------------------------------------------------------------
-     ;; Vim
+     ;; Vim like behaviour
      ;; ----------------------------------------------------------------
      vinegar
+     evil-snipe
      )
 
    ;; List of additional packages that will be installed without being
@@ -128,6 +129,7 @@ values."
                                       org-noter
                                       ;; Some ref done well
                                       org-ref
+                                      ;; org-rifle
                                       ;; org-journal
                                       ;; emacs clipboard
                                       ;; gpastel
@@ -155,7 +157,7 @@ values."
                                     speedbar
                                     fancy-battery
                                     doc-view
-                                    spaceline
+                                    ;; spaceline
                                     org-projectile
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -227,6 +229,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          solarized-dark
+                         spacemacs-dark
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -420,10 +423,9 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Solarized
   ;; ------------------------------------------------------------
-  ;; (load-them 'solarized-gruvbox-dark t)
-  ;; (setq solarized-distinct-fringe-background t)
+  (setq solarized-distinct-fringe-background t)
   ;; (setq solarized-use-variable-pitch nil)
-  ;; (setq solarized-scale-org-headlines nil)
+  (setq solarized-scale-org-headlines nil)
   ;; (setq solarized-high-contrast-mode-line t)
 
   ;; ------------------------------------------------------------
@@ -437,7 +439,7 @@ you should place your code here."
 
   (global-aggressive-indent-mode 1)
 
-  ;; (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'nil)
   ;; ------------------------------------------------------------
   ;; Git
   ;; ------------------------------------------------------------
@@ -568,16 +570,13 @@ you should place your code here."
   (spacemacs/set-leader-keys "hm" 'helm-mark-ring)
   (spacemacs/set-leader-keys "hy" 'helm-show-kill-ring)
   (spacemacs/set-leader-keys "hb" 'helm-bibtex)
+  (spacemacs/set-leader-keys "jj" 'avy-goto-char-timer)
 
   (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
   (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
   (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
   (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)
   (global-set-key (kbd "s-5") 'eyebrowse-switch-to-window-config-5)
-
-
-  (setq terminal-here-terminal-command '("gnome-terminal"))
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -589,10 +588,10 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit-todos helm-fuzzier solarized-dark-theme-theme solarized-gruvbox-dark-theme solarized-theme mmm-mode markdown-toc markdown-mode gh-md vterm auctex-latexmk zenburn-theme gruvbox-theme autothemer base16-theme evil-goggles yasnippet-snippets terminal-here org-noter web-mode tagedit slim-mode scss-mode sass-mode pug-mode org-ref pdf-tools key-chord ivy tablist insert-shebang helm-css-scss helm-bibtex bibtex-completion parsebib haml-mode fish-mode emmet-mode disaster company-web web-completion-data company-shell company-quickhelp company-c-headers company-auctex cmake-mode clang-format biblio biblio-core auctex yapfify xterm-color unfill smeargle shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (evil-snipe fasd stickyfunc-enhance srefactor magit-todos helm-fuzzier solarized-dark-theme-theme solarized-gruvbox-dark-theme solarized-theme mmm-mode markdown-toc markdown-mode gh-md vterm auctex-latexmk zenburn-theme gruvbox-theme autothemer base16-theme evil-goggles yasnippet-snippets terminal-here org-noter web-mode tagedit slim-mode scss-mode sass-mode pug-mode org-ref pdf-tools key-chord ivy tablist insert-shebang helm-css-scss helm-bibtex bibtex-completion parsebib haml-mode fish-mode emmet-mode disaster company-web web-completion-data company-shell company-quickhelp company-c-headers company-auctex cmake-mode clang-format biblio biblio-core auctex yapfify xterm-color unfill smeargle shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36")))))
+ )

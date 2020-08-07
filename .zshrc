@@ -55,8 +55,6 @@ alias as="apt search"
 alias dotfiles="cd ~/Documents/dotfiles"
 alias bin="cd ~/Documents/bin"
 alias Documents="cd ~/Documents"
-# Use vim as editor
-alias editor=vim
 alias gs="git status"
 alias gp="git push"
 alias ga="git add -A"
@@ -94,7 +92,7 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 export FZF_DEFAULT_OPTS="--color=16 --layout=reverse --preview '(pdftotext {} - || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-export VISUAL=vim
+export VISUAL=emacs
 export EDITOR="$VISUAL"
 
 eval "$(pyenv init -)"
@@ -105,22 +103,17 @@ eval "$(pyenv virtualenv-init -)"
 # DIR SWITCHING
 #------------------------------
 d='dirs -v | head -10'
-# 1='cd -'
-# 2='cd -2'
-# 3='cd -3'
-# 4='cd -4'
-# 5='cd -5'
-# 6='cd -6'
-# 7='cd -7'
-# 8='cd -8'
-# 9='cd -9'
 
 
 #------------------------------
 # TMUX
 #------------------------------
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
 
+
+#------------------------------
+# SOURCE
+#------------------------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
