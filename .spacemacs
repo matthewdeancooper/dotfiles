@@ -1,4 +1,4 @@
-;; -*- mo e: emacs-lisp -*-
+;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -63,13 +63,14 @@ values."
      ;; Email
      ;; ----------------------------------------------------------------
      ;; (mu4e :variables
-     ;;       ;; mu4e-enable-notifications t
-     ;;       ;; mu4e-enable-mode-line t
-     ;;       mu4e-account-alist t)
+     ;; mu4e-enable-notifications t
+     ;; mu4e-enable-mode-line t
+     ;; mu4e-account-alist t)
 
      ;; ----------------------------------------------------------------
      ;; Programming
      ;; ----------------------------------------------------------------
+     ;; ess
      bibtex
      latex
      markdown
@@ -111,32 +112,35 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(
-                                      ;; terminal-here
-                                      ;; snippets library
+   dotspacemacs-additional-packages '(;; snippets library
                                       yasnippet-snippets
                                       ;; ;; yanking highlights
                                       evil-goggles
                                       ;; ;; ipython support org mode
                                       ;; ob-ipython
                                       ;; ;; Used for pomodoro alarm
-                                      ;; ;; sound-wav
+                                      ;; sound-wav
                                       ;; ;; latex completion in org
                                       ;; cdlatex
                                       ;; ;; make helm even fuzzier
                                       helm-fuzzier
                                       ;; ;; notes from pdfs with org
-                                      org-noter
+                                      ;; org-noter
                                       ;; Some ref done well
                                       org-ref
-                                      ;; org-rifle
-                                      ;; org-journal
-                                      ;; emacs clipboard
-                                      ;; gpastel
+                                      ;; Search org files
+                                      ;; helm-org-rifle
                                       ;; pass interface for helm
                                       ;; helm-pass
+                                      ;; magit-todos
+                                      sublimity
+                                      ;; org-download
                                       solarized-theme
-                                      magit-todos
+                                      majapahit-theme
+                                      ;; granger-theme
+                                      ;; firebelly-theme
+                                      ;; colorsarenice-theme
+                                      ;; vterm
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -157,8 +161,10 @@ values."
                                     speedbar
                                     fancy-battery
                                     doc-view
-                                    ;; spaceline
+                                    spaceline
                                     org-projectile
+                                    winum
+                                    company-tern
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -228,15 +234,17 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         solarized-dark
+                         ;; solarized-dark
+                         ;; majapahit-dark
                          spacemacs-dark
+                         spacemacs-light
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 15
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -362,7 +370,8 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers  '(:relative nil
+   ;; dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers  '(:relative t
                                           :disabled-for-modes dired-mode
                                           doc-view-mode
                                           markdown-mode
@@ -400,7 +409,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -421,25 +430,32 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; ------------------------------------------------------------
-  ;; Solarized
+  ;; Misc
   ;; ------------------------------------------------------------
-  (setq solarized-distinct-fringe-background t)
-  ;; (setq solarized-use-variable-pitch nil)
-  (setq solarized-scale-org-headlines nil)
-  ;; (setq solarized-high-contrast-mode-line t)
-
-  ;; ------------------------------------------------------------
-  ;; Other
-  ;; ------------------------------------------------------------
-  (setenv "PYTHONIOENCODING" "utf8")
-
   (evil-goggles-mode)
-
   (setq vc-follow-symlinks t)
+  (setq powerline-default-separator 'nil)
 
   (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
-  (setq powerline-default-separator 'nil)
+  (setenv "PYTHONIOENCODING" "utf8")
+
+  ;; (add-hook 'dired-mode-hook 'dired-git-mode)
+
+  ;; ------------------------------------------------------------
+  ;; Sublimity
+  ;; ------------------------------------------------------------
+  (require 'sublimity)
+  ;; (require 'sublimity-scroll)
+  ;; (require 'sublimity-map) ;; experimental
+  (require 'sublimity-attractive)
+  (sublimity-attractive-hide-bars)
+  ;; (sublimity-attractive-hide-vertical-border)
+  (sublimity-attractive-hide-fringes)
+  ;; (sublimity-attractive-hide-modelines)
+  (sublimity-mode 1)
+
   ;; ------------------------------------------------------------
   ;; Git
   ;; ------------------------------------------------------------
@@ -468,6 +484,8 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Org mode
   ;; ------------------------------------------------------------
+
+  (setq projectile-project-search-path '("~/Documents/"))
   ;; where is the org directory
   (setq org-directory "~/Documents/org")
   ;; where are the agenda files
@@ -521,19 +539,20 @@ you should place your code here."
   (setq org-agenda-clockreport-parameter-plist
         (quote (:link t :maxlevel 4 :fileskip0 t :tags :compact t :narrow 80 :formula %)))
 
-  ;; org-pomodoro
-  ;; (setq org-pomodoro-length 60)
-  ;; ;; (setq org-pomodoro-short-break-length 5)
-  ;; ;; (setq org-pomodoro-long-break-length 15)
-  ;; (setq org-pomodoro-play-sounds 1)
+
+  ;; ORG-POMODORO
+  (setq org-pomodoro-length 60)
+  (setq org-pomodoro-short-break-length 5)
+  ;; (setq org-pomodoro-long-break-length 15)
+  (setq org-pomodoro-play-sounds 1)
 
   ;; ORG-SRC
-  ;; (setq org-fontify-quote-and-verse-blocks t)
-  ;; (setq org-src-fontify-natively t)
+  (setq org-fontify-quote-and-verse-blocks t)
+  (setq org-src-fontify-natively t)
   ;; ;; better latex in org mode for maths
-  ;; (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-  ;; (setq org-src-tab-acts-natively t)
-  ;; (setq org-src-preserve-indentation t)
+  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation t)
 
   ;; ORG-DOWNLOAD
   ;; download images
@@ -572,12 +591,59 @@ you should place your code here."
   (spacemacs/set-leader-keys "hb" 'helm-bibtex)
   (spacemacs/set-leader-keys "jj" 'avy-goto-char-timer)
 
-  (global-set-key (kbd "s-1") 'eyebrowse-switch-to-window-config-1)
-  (global-set-key (kbd "s-2") 'eyebrowse-switch-to-window-config-2)
-  (global-set-key (kbd "s-3") 'eyebrowse-switch-to-window-config-3)
-  (global-set-key (kbd "s-4") 'eyebrowse-switch-to-window-config-4)
-  (global-set-key (kbd "s-5") 'eyebrowse-switch-to-window-config-5)
+  (global-set-key (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
+  (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
+  (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
+  (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
+  (global-set-key (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+
+
+
+
+  ;; ------------------------------------------------------------
+  ;; PACKAGE - MU4E
+  ;; ------------------------------------------------------------
+  ;; (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
+  ;; ;;store link to message if in header view, not to header query
+  ;; (setq org-mu4e-link-query-in-headers-mode nil)
+  ;; ;; Set up some common mu4e variables
+  ;; (setq mu4e-maildir "~/.maildir"
+  ;;       mu4e-trash-folder "/Trash"
+  ;;       mu4e-refile-folder "/Archive"
+  ;;       mu4e-get-mail-command "offlineimap"
+  ;;       mu4e-update-interval nil
+  ;;       mu4e-compose-signature-auto-include nil
+  ;;       mu4e-view-show-images t
+  ;;       mu4e-view-show-addresses t)
+
+  ;; ;; DID USE THIS
+  ;; ;; MU4E - ACCOUNTS
+  ;; (setq mu4e-account-alist
+  ;;       '(("gmail"
+  ;;          ;; Under each account, set the account-specific variables you want.
+  ;;          (mu4e-sent-messages-behavior delete)
+  ;;          (mu4e-sent-folder "/gmail/Sent")
+  ;;          (mu4e-drafts-folder "/gmail/Drafts")
+  ;;          (user-mail-address "matthewdeancooper@gmail.com")
+  ;;          (user-full-name "Matthew"))
+  ;;         ("usyd"
+  ;;          (mu4e-sent-messages-behavior sent)
+  ;;          (mu4e-sent-folder "/usyd/Sent")
+  ;;          (mu4e-drafts-folder "/usyd/Drafts")
+  ;;          (user-mail-address "mcoo3379@uni.sydney.edu.au")
+  ;;          (user-full-name "Matthew"))))
+  ;; ;; (mu4e/mail-account-reset)
+
+  ;; ;; SMTP - FOR SENDING MAIL
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-stream-type 'starttls
+  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-service 587)
+  ;; ;; don't keep message buffers around
+  ;; (setq message-kill-buffer-on-exit t)
   )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -586,9 +652,7 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (evil-snipe fasd stickyfunc-enhance srefactor magit-todos helm-fuzzier solarized-dark-theme-theme solarized-gruvbox-dark-theme solarized-theme mmm-mode markdown-toc markdown-mode gh-md vterm auctex-latexmk zenburn-theme gruvbox-theme autothemer base16-theme evil-goggles yasnippet-snippets terminal-here org-noter web-mode tagedit slim-mode scss-mode sass-mode pug-mode org-ref pdf-tools key-chord ivy tablist insert-shebang helm-css-scss helm-bibtex bibtex-completion parsebib haml-mode fish-mode emmet-mode disaster company-web web-completion-data company-shell company-quickhelp company-c-headers company-auctex cmake-mode clang-format biblio biblio-core auctex yapfify xterm-color unfill smeargle shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-statistics company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

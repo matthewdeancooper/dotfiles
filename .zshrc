@@ -20,7 +20,7 @@ COMPLETION_WAITING_DOTS="true"
 
 
 # Dont need to write cd just dir name
-setopt  autocd autopushd 
+setopt  autocd autopushd
 
 #------------------------------
 # PLUGINS
@@ -32,7 +32,7 @@ setopt  autocd autopushd
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(vi-mode fzf pip cp git zsh-completions zsh-autosuggestions zsh-syntax-highlighting history-substring-search)
 
-# Reload completions for zsh-completions 
+# Reload completions for zsh-completions
 autoload -U compinit && compinit
 
 
@@ -99,6 +99,12 @@ export EDITOR="$VISUAL"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+
+# For EGSnrc
+# EGS_HOME=/home/matthew/opt/EGSnrc/egs_home/
+# EGS_CONFIG=/home/matthew/opt/EGSnrc/HEN_HOUSE/specs/linux.conf
+# export EGS_HOME EGS_CONFIG
+# source /home/matthew/opt/EGSnrc/HEN_HOUSE/scripts/egsnrc_bashrc_additions
 
 #------------------------------
 # DIR SWITCHING

@@ -58,7 +58,7 @@ set mouse=a  "Enable mouse
 set nocompatible "Break compatibility with vi
 syntax enable "Enable syntax highlighting
 filetype plugin indent on "Language specific indentation and plugins
-set hidden  "switch from an unsaved buffer without saving it first
+" set hidden  "switch from an unsaved buffer without saving it first
 set ignorecase "Ignore case when searching
 set smartcase  " ...unless you type a capital
 set incsearch  "Highlight searches incrementally
@@ -76,7 +76,7 @@ set lazyredraw "Removes lag when using rel line numbers and cursorline
 set inccommand=split "On the fly splitting with split window"
 set ttimeout ttimeoutlen=10
 set ts=4 "tab is 4 spaces"
-let mapleader = " "
+let mapleader = " " "Use space as leader
 
 "KEY SETTINGS
 "Remove unused key in normal
