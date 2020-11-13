@@ -60,6 +60,7 @@ alias gp="git push"
 alias ga="git add -A"
 alias mg="mgitstatus"
 alias secondary="cd /media/matthew/secondary"
+alias size="du -sh * | sort -rh"
 
 #------------------------------
 # FUNCTIONS
