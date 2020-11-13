@@ -96,9 +96,7 @@ values."
      ;; ----------------------------------------------------------------
      pdf-tools
      (shell :variables
-            shell-default-height 30
-            ;; shell-default-shell 'eshell
-            shell-default-shell 'ansi-term
+            shell-default-shell 'eshell
             shell-default-position 'bottom)
 
      ;; ----------------------------------------------------------------
@@ -134,13 +132,10 @@ values."
                                       ;; helm-pass
                                       ;; magit-todos
                                       sublimity
+                                      terminal-here
                                       ;; org-download
-                                      solarized-theme
-                                      majapahit-theme
-                                      ;; granger-theme
-                                      ;; firebelly-theme
-                                      ;; colorsarenice-theme
-                                      ;; vterm
+                                      vterm
+                                      vterm-toggle
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -157,7 +152,7 @@ values."
                                     golden-ratio
                                     evil-tutor
                                     google-translate
-                                    org-bullets
+                                    ;; org-bullets
                                     speedbar
                                     fancy-battery
                                     doc-view
@@ -217,7 +212,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner nil
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -370,15 +365,15 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   ;; dotspacemacs-line-numbers nil
-   dotspacemacs-line-numbers  '(:relative t
-                                          :disabled-for-modes dired-mode
-                                          doc-view-mode
-                                          markdown-mode
-                                          org-mode
-                                          pdf-view-mode
-                                          text-mode
-                                          :size-limit-kb 1000)
+   dotspacemacs-line-numbers nil
+   ;; dotspacemacs-line-numbers  '(:relative t
+   ;;                                        :disabled-for-modes dired-mode
+   ;;                                        doc-view-mode
+   ;;                                        markdown-mode
+   ;;                                        org-mode
+   ;;                                        pdf-view-mode
+   ;;                                        text-mode
+   ;;                                        :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -441,6 +436,8 @@ you should place your code here."
 
   (setenv "PYTHONIOENCODING" "utf8")
 
+  (setq projectile-project-search-path '("~/github/"))
+
   ;; (add-hook 'dired-mode-hook 'dired-git-mode)
 
   ;; ------------------------------------------------------------
@@ -453,7 +450,7 @@ you should place your code here."
   (sublimity-attractive-hide-bars)
   ;; (sublimity-attractive-hide-vertical-border)
   (sublimity-attractive-hide-fringes)
-  ;; (sublimity-attractive-hide-modelines)
+  (sublimity-attractive-hide-modelines)
   (sublimity-mode 1)
 
   ;; ------------------------------------------------------------
@@ -465,6 +462,11 @@ you should place your code here."
   (global-diff-hl-mode)
   (diff-hl-flydiff-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+
+  ;; ------------------------------------------------------------
+  ;; Dired
+  ;; ------------------------------------------------------------
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 
@@ -485,15 +487,14 @@ you should place your code here."
   ;; Org mode
   ;; ------------------------------------------------------------
 
-  (setq projectile-project-search-path '("~/Documents/"))
   ;; where is the org directory
-  (setq org-directory "~/Documents/org")
+  (setq org-directory "~/github/org")
   ;; where are the agenda files
-  (setq org-agenda-files (list "~/Documents/org"))
+  (setq org-agenda-files (list "~/github/org"))
   ;; where to capture by default
-  (setq org-default-notes-file "~/Documents/org/notes.org")
+  (setq org-default-notes-file "~/github/org/notes.org")
   ;; open agenda in current window
-  (setq org-agenda-window-setup (quote current-window))
+  ;; (setq org-agenda-window-setup (quote current-window))
   ;; dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   (setq org-todo-keywords
@@ -503,15 +504,15 @@ you should place your code here."
 
   ;; org-capture
   (setq org-capture-templates
-        '(("t" "task" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+        '(("t" "task" entry (file+headline "~/github/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("T" "task linked" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+          ("T" "task linked" entry (file+headline "~/github/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("d" "calendar" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+          ("d" "calendar" entry (file+headline "~/github/org/todo.org" "Calendar")
            "* %? \n  %i")
-          ("D" "calendar linked" entry (file+headline "~/Documents/org/todo.org" "Calendar")
+          ("D" "calendar linked" entry (file+headline "~/github/org/todo.org" "Calendar")
            "* %? \n  %i %a")
-          ("n" "note" entry (file+headline "~/Documents/org/notes.org" "Notes")
+          ("n" "note" entry (file+headline "~/github/org/notes.org" "Notes")
            "* %? \n  %i")
           ))
 
@@ -561,16 +562,16 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Org ref
   ;; ------------------------------------------------------------
-  (setq reftex-default-bibliography '("~/Documents/org/references.bib"))
+  (setq reftex-default-bibliography '("~/github/org/references.bib"))
 
   ;; see org-ref for use of these variables
-  (setq org-ref-bibliography-notes "~/Documents/org/notes.org"
-        org-ref-default-bibliography '("~/Documents/org/references.bib")
-        org-ref-pdf-directory "~/Documents/org/bibtex-pdfs/")
+  (setq org-ref-bibliography-notes "~/github/org/notes.org"
+        org-ref-default-bibliography '("~/github/org/references.bib")
+        org-ref-pdf-directory "~/github/org/bibtex-pdfs/")
   ;; If you use helm-bibtex as the citation key completion method you should set these variables too
-  (setq bibtex-completion-bibliography "~/Documents/org/references.bib"
-        bibtex-completion-library-path "~/Documents/org/bibtex-pdfs"
-        bibtex-completion-notes-path "~/Documents/org/helm-bibtex-notes")
+  (setq bibtex-completion-bibliography "~/github/org/references.bib"
+        bibtex-completion-library-path "~/github/org/bibtex-pdfs"
+        bibtex-completion-notes-path "~/github/org/helm-bibtex-notes")
 
   ;; open pdf with system pdf viewer (works on mac)
   (setq bibtex-completion-pdf-open-function
@@ -590,12 +591,14 @@ you should place your code here."
   (spacemacs/set-leader-keys "hy" 'helm-show-kill-ring)
   (spacemacs/set-leader-keys "hb" 'helm-bibtex)
   (spacemacs/set-leader-keys "jj" 'avy-goto-char-timer)
+  (spacemacs/set-leader-keys "at" 'terminal-here)
 
   (global-set-key (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
   (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
   (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
   (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
   (global-set-key (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
+  (global-set-key (kbd "M-o") 'ace-window)
 
 
 
@@ -652,7 +655,8 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   '(org-bullets modus-vivendi-theme modus-operandi-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help yasnippet-snippets yapfify ws-butler which-key web-mode vterm-toggle volatile-highlights uuidgen use-package unfill toc-org terminal-here tagedit sublimity smeargle slim-mode scss-mode sass-mode restart-emacs pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download open-junk-file mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzier helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
