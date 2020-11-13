@@ -152,13 +152,13 @@ values."
                                     golden-ratio
                                     evil-tutor
                                     google-translate
-                                    ;; org-bullets
+                                    org-bullets
                                     ;; speedbar
                                     fancy-battery
                                     doc-view
                                     spaceline
                                     org-projectile
-                                    ;; winum
+                                    winum
                                     ;; company-tern
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
