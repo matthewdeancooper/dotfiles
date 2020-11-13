@@ -153,13 +153,13 @@ values."
                                     evil-tutor
                                     google-translate
                                     ;; org-bullets
-                                    speedbar
+                                    ;; speedbar
                                     fancy-battery
                                     doc-view
                                     spaceline
                                     org-projectile
-                                    winum
-                                    company-tern
+                                    ;; winum
+                                    ;; company-tern
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -439,6 +439,8 @@ you should place your code here."
   (setq projectile-project-search-path '("~/github/"))
 
   ;; (add-hook 'dired-mode-hook 'dired-git-mode)
+  (setq split-height-threshold nil)
+  (setq split-width-threshold 80)
 
   ;; ------------------------------------------------------------
   ;; Sublimity
@@ -447,10 +449,10 @@ you should place your code here."
   ;; (require 'sublimity-scroll)
   ;; (require 'sublimity-map) ;; experimental
   (require 'sublimity-attractive)
-  (sublimity-attractive-hide-bars)
+  ;; (sublimity-attractive-hide-bars)
   ;; (sublimity-attractive-hide-vertical-border)
-  (sublimity-attractive-hide-fringes)
-  (sublimity-attractive-hide-modelines)
+  ;; (sublimity-attractive-hide-fringes)
+  ;; (sublimity-attractive-hide-modelines)
   (sublimity-mode 1)
 
   ;; ------------------------------------------------------------
@@ -494,7 +496,7 @@ you should place your code here."
   ;; where to capture by default
   (setq org-default-notes-file "~/github/org/notes.org")
   ;; open agenda in current window
-  ;; (setq org-agenda-window-setup (quote current-window))
+  (setq org-agenda-window-setup (quote other-window))
   ;; dont warn me in advance, just on the day
   (setq org-deadline-warning-days 0)
   (setq org-todo-keywords
@@ -656,7 +658,7 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-bullets modus-vivendi-theme modus-operandi-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help yasnippet-snippets yapfify ws-butler which-key web-mode vterm-toggle volatile-highlights uuidgen use-package unfill toc-org terminal-here tagedit sublimity smeargle slim-mode scss-mode sass-mode restart-emacs pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download open-junk-file mwim move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzier helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+   '(winum spaceline powerline yasnippet-snippets yapfify xterm-color ws-butler which-key web-mode vterm-toggle volatile-highlights uuidgen use-package unfill toc-org terminal-here tagedit sublimity smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file mwim multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzier helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -30,4 +30,4 @@ fi
 # Add some user defined paths
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.pyenv/bin:$PATH"
-export PATH="$HOME/Documents/bin:$PATH"
+export PATH="$HOME/github/bin:$PATH"
