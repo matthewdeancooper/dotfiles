@@ -439,8 +439,8 @@ you should place your code here."
   (setq projectile-project-search-path '("~/github/"))
 
   ;; (add-hook 'dired-mode-hook 'dired-git-mode)
-  (setq split-height-threshold nil)
-  (setq split-width-threshold 80)
+  ;; (setq split-height-threshold nil)
+  ;; (setq split-width-threshold 80)
 
   ;; ------------------------------------------------------------
   ;; Sublimity
