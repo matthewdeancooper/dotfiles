@@ -76,6 +76,8 @@ values."
      markdown
      html
      shell-scripts
+     lsp
+     deft
      (python :variables
              python-backend 'lsp
              python-tab-width 4
@@ -94,7 +96,8 @@ values."
      ;; ----------------------------------------------------------------
      ;; Tools
      ;; ----------------------------------------------------------------
-     pdf-tools
+     ;; pdf-tools
+     pdf
      (shell :variables
             shell-default-shell 'eshell
             shell-default-position 'bottom)
@@ -461,15 +464,15 @@ you should place your code here."
   (global-git-commit-mode t)
 
   (setq version-control-diff-tool 'diff-hl)
-  (global-diff-hl-mode)
-  (diff-hl-flydiff-mode)
+  ;; (global-diff-hl-mode)
+  ;; (diff-hl-flydiff-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 
   ;; ------------------------------------------------------------
   ;; Dired
   ;; ------------------------------------------------------------
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  ;; (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 
   ;; ------------------------------------------------------------
@@ -488,7 +491,7 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Org mode
   ;; ------------------------------------------------------------
-
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
   ;; where is the org directory
   (setq org-directory "~/github/org")
   ;; where are the agenda files
@@ -600,7 +603,7 @@ you should place your code here."
   (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
   (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
   (global-set-key (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
-  (global-set-key (kbd "M-o") 'ace-window)
+  ;; (global-set-key (kbd "C-w C-w") 'ace-window)
 
 
 
@@ -658,7 +661,8 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(winum spaceline powerline yasnippet-snippets yapfify xterm-color ws-butler which-key web-mode vterm-toggle volatile-highlights uuidgen use-package unfill toc-org terminal-here tagedit sublimity smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file mwim multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzier helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+   (quote
+    (deft winum spaceline powerline yasnippet-snippets yapfify xterm-color ws-butler which-key web-mode vterm-toggle volatile-highlights uuidgen use-package unfill toc-org terminal-here tagedit sublimity smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox orgit org-ref org-present org-pomodoro org-mime org-download org-bullets open-junk-file mwim multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint insert-shebang indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-fuzzier helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fish-mode fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-snipe evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump disaster diminish diff-hl define-word cython-mode company-web company-statistics company-shell company-quickhelp company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
