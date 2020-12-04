@@ -1,3 +1,5 @@
 [user]
 	email = matthewdeancooper@gmail.com
 	name = Matthew
+[core]
+	editor = emacsclient -c
