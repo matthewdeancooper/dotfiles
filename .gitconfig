@@ -1,5 +1,9 @@
 [user]
 	email = matthewdeancooper@gmail.com
 	name = Matthew
+	username = matthewdeancooper
 [core]
 	editor = emacsclient -c
+[github]
+	user = matthewdeancooper
+	token = token
