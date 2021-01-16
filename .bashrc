@@ -116,38 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-## --------------------------------------------------
-# OTHER
-alias smci="sudo make clean install"
-alias ec="emacsclient -c"
-alias m="cd /home/matthew"
-# GIT
-alias gs="git status"
-alias ga="git add"
-alias gc="git commit"
-alias gco="git checkout"
-alias gp="git push"
-alias gf="git fetch"
-# APT
-alias sai="sudo apt-get install"
-alias sas="sudo apt-get search"
-alias sap="sudo apt-get purge"
-alias sar="sudo apt-get remove"
-alias sau="sudo apt-get update"
-alias sauu="sudo apt-get update && sudo apt-get upgrade"
-
-
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init -)"
-fi
-
-
-# NVIDIA CUDA
-export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-
+# EDITS --------------------------------------------------
+source ~/.aliases
+source ~/.exports
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
