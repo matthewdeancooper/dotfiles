@@ -137,8 +137,8 @@ values."
                                       sublimity
                                       terminal-here
                                       ;; org-download
-                                      vterm
-                                      vterm-toggle
+                                      ;; vterm
+                                      ;; vterm-toggle
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

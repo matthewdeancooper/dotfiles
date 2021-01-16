@@ -7,3 +7,5 @@
 	user = matthewdeancooper
 	username = matthewdeancooper
 	token = token
+[credential]
+	helper = cache
