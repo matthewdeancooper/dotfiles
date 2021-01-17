@@ -1,12 +1,12 @@
 ## home
-ln -sf ~/github/dotfiles/.profile ~/.profile
+# ln -sf ~/github/dotfiles/.profile ~/.profile
 ln -sf ~/github/dotfiles/.spacemacs ~/.spacemacs
 ln -sf ~/github/dotfiles/.bashrc ~/.bashrc
 ln -sf ~/github/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/github/dotfiles/.selected_editor ~/.selected_editor
 
 # My extensions in home
-ln -sf ~/github/dotfiles/.paths ~/.paths
+# ln -sf ~/github/dotfiles/.paths ~/.paths
 ln -sf ~/github/dotfiles/.exports ~/.exports
 ln -sf ~/github/dotfiles/.aliases ~/.aliases
 
