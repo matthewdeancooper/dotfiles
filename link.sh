@@ -23,4 +23,4 @@ ln -sf $DIR/.bash_aliases ~/.bash_aliases
 # ln -s ~/proj/etc/zathurarc ~/.config/zathura/zathurarc
 # ln -s ~/proj/etc/dunstrc ~/.config/dunst/dunstrc
 # ln -sf ~/github/dotfiles/user-dirs.dirs ~/.config/user-dirs.dirs
-# ln -sf ~/github/dotfiles/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -sf $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
