@@ -1,14 +1,14 @@
+DIR=$PWD
 ## home
-# ln -sf ~/github/dotfiles/.profile ~/.profile
-ln -sf ~/github/dotfiles/.spacemacs ~/.spacemacs
-ln -sf ~/github/dotfiles/.bashrc ~/.bashrc
-ln -sf ~/github/dotfiles/.gitconfig ~/.gitconfig
-ln -sf ~/github/dotfiles/.selected_editor ~/.selected_editor
+ln -sf $DIR/.profile ~/.profile
+ln -sf $DIR/.spacemacs ~/.spacemacs
+ln -sf $DIR/.bashrc ~/.bashrc
+ln -sf $DIR/.gitconfig ~/.gitconfig
+ln -sf $DIR/.selected_editor ~/.selected_editor
 
 # My extensions in home
-# ln -sf ~/github/dotfiles/.paths ~/.paths
-ln -sf ~/github/dotfiles/.bash_exports ~/.bash_exports
-ln -sf ~/github/dotfiles/.bash_aliases ~/.bash_aliases
+ln -sf $DIR/.profile_exports ~/.profile_exports
+ln -sf $DIR/.bash_aliases ~/.bash_aliases
 
 # ln -sf ~/github/dotfiles/.tmuxconf ~/.tmux.conf
 # ln -sf ~/proj/etc/.xinitrc ~/.xinitrc
