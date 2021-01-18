@@ -117,10 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 # EDITS --------------------------------------------------
-# Source bash exports
-if [ -f ~/.bash_exports ]; then
-    . ~/.bash_exports
-fi
 
 # Source fzf
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
