@@ -3,8 +3,8 @@
 # PATH
 #------------------------------
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/proj/bin" ] ; then
-    PATH="$HOME/proj/bin:$PATH"
+if [ -d "$HOME/github/bin" ] ; then
+    PATH="$HOME/github/bin:$PATH"
 fi
 
 # set PATH so it includes .local/bin if it exists
