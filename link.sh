@@ -7,8 +7,8 @@ ln -sf ~/github/dotfiles/.selected_editor ~/.selected_editor
 
 # My extensions in home
 # ln -sf ~/github/dotfiles/.paths ~/.paths
-ln -sf ~/github/dotfiles/.exports ~/.exports
-ln -sf ~/github/dotfiles/.aliases ~/.aliases
+ln -sf ~/github/dotfiles/.bash_exports ~/.bash_exports
+ln -sf ~/github/dotfiles/.bash_aliases ~/.bash_aliases
 
 # ln -sf ~/github/dotfiles/.tmuxconf ~/.tmux.conf
 # ln -sf ~/proj/etc/.xinitrc ~/.xinitrc

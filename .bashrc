@@ -118,7 +118,7 @@ fi
 
 # EDITS --------------------------------------------------
 # Source bash exports
-if [ -f ~/.bash_exports]; then
+if [ -f ~/.bash_exports ]; then
     . ~/.bash_exports
 fi
 
