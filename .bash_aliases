@@ -1,7 +1,7 @@
 # OTHER
 alias smci="sudo make clean install"
 alias ec="emacsclient -c"
-alias m="cd /home/matthew"
+alias h="cd /home/matthew"
 # GIT
 alias gs="git status"
 alias ga="git add"

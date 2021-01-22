@@ -99,7 +99,7 @@ values."
      ;; pdf-tools
      pdf
      (shell :variables
-            shell-default-shell 'eshell
+            shell-default-shell 'vterm
             shell-default-position 'bottom)
 
      ;; ----------------------------------------------------------------
@@ -122,23 +122,23 @@ values."
                                       ;; ;; Used for pomodoro alarm
                                       ;; sound-wav
                                       ;; ;; latex completion in org
-                                      ;; cdlatex
+                                      cdlatex
                                       ;; ;; make helm even fuzzier
                                       helm-fuzzier
                                       ;; ;; notes from pdfs with org
-                                      ;; org-noter
+                                      org-noter
                                       ;; Some ref done well
                                       org-ref
                                       ;; Search org files
-                                      ;; helm-org-rifle
+                                      helm-org-rifle
                                       ;; pass interface for helm
                                       ;; helm-pass
                                       ;; magit-todos
                                       sublimity
                                       terminal-here
-                                      ;; org-download
-                                      ;; vterm
-                                      ;; vterm-toggle
+                                      org-download
+                                      vterm
+                                      vterm-toggle
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -236,6 +236,7 @@ values."
                          ;; majapahit-dark
                          spacemacs-dark
                          spacemacs-light
+                         ;; leuven
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -439,7 +440,7 @@ you should place your code here."
 
   (setenv "PYTHONIOENCODING" "utf8")
 
-  (setq projectile-project-search-path '("~/github/"))
+  (setq projectile-project-search-path '("~/"))
 
   ;; (add-hook 'dired-mode-hook 'dired-git-mode)
   ;; (setq split-height-threshold nil)
@@ -493,11 +494,11 @@ you should place your code here."
   ;; ------------------------------------------------------------
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
   ;; where is the org directory
-  (setq org-directory "~/github/org")
+  (setq org-directory "~/org")
   ;; where are the agenda files
-  (setq org-agenda-files (list "~/github/org"))
+  (setq org-agenda-files (list "~/org"))
   ;; where to capture by default
-  (setq org-default-notes-file "~/github/org/notes.org")
+  (setq org-default-notes-file "~/org/notes.org")
   ;; open agenda in current window
   (setq org-agenda-window-setup (quote other-window))
   ;; dont warn me in advance, just on the day
@@ -509,15 +510,15 @@ you should place your code here."
 
   ;; org-capture
   (setq org-capture-templates
-        '(("t" "task" entry (file+headline "~/github/org/todo.org" "Tasks")
+        '(("t" "task" entry (file+headline "~/org/todo.org" "Tasks")
            "* TODO  %? \n  %i")
-          ("T" "task linked" entry (file+headline "~/github/org/todo.org" "Tasks")
+          ("T" "task linked" entry (file+headline "~/org/todo.org" "Tasks")
            "* TODO %? \n  %i %a")
-          ("d" "calendar" entry (file+headline "~/github/org/todo.org" "Calendar")
+          ("d" "calendar" entry (file+headline "~/org/todo.org" "Calendar")
            "* %? \n  %i")
-          ("D" "calendar linked" entry (file+headline "~/github/org/todo.org" "Calendar")
+          ("D" "calendar linked" entry (file+headline "~/org/todo.org" "Calendar")
            "* %? \n  %i %a")
-          ("n" "note" entry (file+headline "~/github/org/notes.org" "Notes")
+          ("n" "note" entry (file+headline "~/org/notes.org" "Notes")
            "* %? \n  %i")
           ))
 
@@ -567,16 +568,16 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; Org ref
   ;; ------------------------------------------------------------
-  (setq reftex-default-bibliography '("~/github/org/references.bib"))
+  (setq reftex-default-bibliography '("~/org/references.bib"))
 
   ;; see org-ref for use of these variables
-  (setq org-ref-bibliography-notes "~/github/org/notes.org"
-        org-ref-default-bibliography '("~/github/org/references.bib")
-        org-ref-pdf-directory "~/github/org/bibtex-pdfs/")
+  (setq org-ref-bibliography-notes "~/org/notes.org"
+        org-ref-default-bibliography '("~/org/references.bib")
+        org-ref-pdf-directory "~/org/bibtex-pdfs/")
   ;; If you use helm-bibtex as the citation key completion method you should set these variables too
-  (setq bibtex-completion-bibliography "~/github/org/references.bib"
-        bibtex-completion-library-path "~/github/org/bibtex-pdfs"
-        bibtex-completion-notes-path "~/github/org/helm-bibtex-notes")
+  (setq bibtex-completion-bibliography "~/org/references.bib"
+        bibtex-completion-library-path "~/org/bibtex-pdfs"
+        bibtex-completion-notes-path "~/org/helm-bibtex-notes")
 
   ;; open pdf with system pdf viewer (works on mac)
   (setq bibtex-completion-pdf-open-function
@@ -602,8 +603,9 @@ you should place your code here."
   (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
   (global-set-key (kbd "M-3") 'eyebrowse-switch-to-window-config-3)
   (global-set-key (kbd "M-4") 'eyebrowse-switch-to-window-config-4)
-  (global-set-key (kbd "M-5") 'eyebrowse-switch-to-window-config-5)
-  ;; (global-set-key (kbd "C-w C-w") 'ace-window)
+  (global-set-key (kbd "M-5")
+                  'eyebrowse-switch-to-window-config-5)
+  (global-set-key (kbd "M-w") 'ace-window)
 
 
 
