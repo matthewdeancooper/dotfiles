@@ -118,7 +118,7 @@ values."
                                       ;; ;; yanking highlights
                                       evil-goggles
                                       ;; ;; ipython support org mode
-                                      ;; ob-ipython
+                                      ob-ipython
                                       ;; ;; Used for pomodoro alarm
                                       ;; sound-wav
                                       ;; ;; latex completion in org
@@ -613,21 +613,21 @@ you should place your code here."
   ;; ------------------------------------------------------------
   ;; PACKAGE - MU4E
   ;; ------------------------------------------------------------
-  ;; (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com" "mcoo3379@uni.sydney.edu.au"))
+  ;; (setq mu4e-user-mail-address-list '("matthewdeancooper@gmail.com"))
   ;; ;;store link to message if in header view, not to header query
   ;; (setq org-mu4e-link-query-in-headers-mode nil)
   ;; ;; Set up some common mu4e variables
   ;; (setq mu4e-maildir "~/.maildir"
-  ;;       mu4e-trash-folder "/Trash"
-  ;;       mu4e-refile-folder "/Archive"
+  ;;       ;; mu4e-trash-folder "/Trash"
+  ;;       ;; mu4e-refile-folder "/Archive"
   ;;       mu4e-get-mail-command "offlineimap"
-  ;;       mu4e-update-interval nil
-  ;;       mu4e-compose-signature-auto-include nil
+  ;;       ;; mu4e-update-interval nil
+  ;;       ;; mu4e-compose-signature-auto-include nil
   ;;       mu4e-view-show-images t
   ;;       mu4e-view-show-addresses t)
 
-  ;; ;; DID USE THIS
-  ;; ;; MU4E - ACCOUNTS
+  ;; ;; ;; DID USE THIS
+  ;; ;; ;; MU4E - ACCOUNTS
   ;; (setq mu4e-account-alist
   ;;       '(("gmail"
   ;;          ;; Under each account, set the account-specific variables you want.
@@ -636,13 +636,6 @@ you should place your code here."
   ;;          (mu4e-drafts-folder "/gmail/Drafts")
   ;;          (user-mail-address "matthewdeancooper@gmail.com")
   ;;          (user-full-name "Matthew"))
-  ;;         ("usyd"
-  ;;          (mu4e-sent-messages-behavior sent)
-  ;;          (mu4e-sent-folder "/usyd/Sent")
-  ;;          (mu4e-drafts-folder "/usyd/Drafts")
-  ;;          (user-mail-address "mcoo3379@uni.sydney.edu.au")
-  ;;          (user-full-name "Matthew"))))
-  ;; ;; (mu4e/mail-account-reset)
 
   ;; ;; SMTP - FOR SENDING MAIL
   ;; (setq message-send-mail-function 'smtpmail-send-it

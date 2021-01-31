@@ -9,6 +9,7 @@ alias gc="git commit"
 alias gco="git checkout"
 alias gp="git push"
 alias gf="git fetch"
+alias mg="mgitstatus"
 # APT
 alias sai="sudo apt-get install"
 alias sas="sudo apt-get search"

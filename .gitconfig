@@ -1,6 +1,6 @@
 [user]
 	email = matthewdeancooper@gmail.com
-	name = Matthew
+	name = Matthew Cooper
 [core]
 	editor = emacsclient -c
 [github]
