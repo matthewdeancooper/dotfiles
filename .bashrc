@@ -117,3 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 #---------------------------------------------------------------
+
+# set editing-mode vi
+set -o vi

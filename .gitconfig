@@ -8,4 +8,8 @@
 	username = matthewdeancooper
 	token = token
 [credential]
-	helper = cache
+	helper = store
+[credential "https://github.com"]
+	username = matthewdeancooper
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
