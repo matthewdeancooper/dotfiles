@@ -120,3 +120,4 @@ fi
 
 # set editing-mode vi
 set -o vi
+export EDITOR="emacsclient -c"

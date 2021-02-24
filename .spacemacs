@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(vimscript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -574,7 +574,7 @@ before packages are loaded."
   (global-set-key (kbd "C-4") 'eyebrowse-switch-to-window-config-4)
 
   (spacemacs/set-leader-keys "jj" 'avy-goto-char-timer)
-  (spacemacs/set-leader-keys "hb" 'helm-bibtex)
+  ;; (spacemacs/set-leader-keys "hb" 'helm-bibtex)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -591,6 +591,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol t)
+ '(package-selected-packages
+   (quote
+    (vimrc-mode helm-gtags ggtags dactyl-mode counsel-gtags counsel swiper yasnippet-snippets yapfify xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights uuidgen use-package unfill undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-evil toc-org terminal-here tagedit symon symbol-overlay sublimity string-inflection sphinx-doc spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters pytest pyenv-mode py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements password-generator paradox overseer orgit org-rich-yank org-ref org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file nameless mwim multi-term multi-line move-text magit-todos magit-svn magit-section magit-gitflow macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-latex lorem-ipsum live-py-mode link-hint indent-guide importmagic impatient-mode hybrid-mode hungry-delete highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate google-c-style golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fuzzy forge font-lock+ flyspell-correct-helm flycheck-ycmd flycheck-rtags flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-snipe evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode disaster dired-quick-sort diminish devdocs define-word dap-mode cython-mode cpp-auto-include company-ycmd company-web company-rtags company-reftex company-math company-c-headers company-auctex company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode ccls browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
  '(safe-local-variable-values
    (quote
     ((org-edit-src-content . 0)
