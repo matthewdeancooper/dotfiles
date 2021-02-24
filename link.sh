@@ -16,3 +16,4 @@ ln -sf $DIR/init.vim ~/.config/nvim/init.vim
 ln -sf $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
 ln -sf $DIR/gtk.css ~/.config/gtk-3.0/gtk.css
 ln -sf $DIR/htoprc ~/.config/htop/htoprc
+ln -sf $DIR/emacs.desktop ~/.config/autostart/emacs.desktop

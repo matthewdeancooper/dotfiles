@@ -1,0 +1,266 @@
+[apps/update-manager]
+first-run=false
+launch-count=4
+launch-time=int64 1614102813
+
+[com/ubuntu/update-notifier]
+release-check-time=uint32 1614102806
+
+[desktop/ibus/general]
+preload-engines=['xkb:us::eng']
+version='1.5.22'
+
+[org/gnome/control-center]
+last-panel='power'
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST']
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'gnome-system-monitor.desktop', 'gucharmap.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Screenshot.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'simple-scan.desktop', 'vinagre.desktop', 'yelp.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/background]
+color-shading-type='solid'
+draw-background=true
+picture-options='zoom'
+picture-uri='file:///home/matthew/.local/share/backgrounds/2021-01-17-11-53-02-Firefox_wallpaper.png'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'au')]
+xkb-options=['caps:ctrl_modifier']
+
+[org/gnome/desktop/interface]
+enable-animations=false
+enable-hot-corners=false
+gtk-im-module='gtk-im-context-simple'
+gtk-theme='Yaru'
+show-battery-percentage=true
+toolkit-accessibility=false
+
+[org/gnome/desktop/notifications]
+application-children=['update-manager', 'firefox', 'emacs', 'gnome-power-panel', 'org-gnome-terminal', 'apport-gtk', 'snap-store-ubuntu-software', 'gnome-network-panel', 'gnome-control-center', 'google-chrome']
+
+[org/gnome/desktop/notifications/application/apport-gtk]
+application-id='apport-gtk.desktop'
+
+[org/gnome/desktop/notifications/application/emacs]
+application-id='emacs.desktop'
+
+[org/gnome/desktop/notifications/application/firefox]
+application-id='firefox.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-control-center]
+application-id='gnome-control-center.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-network-panel]
+application-id='gnome-network-panel.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-power-panel]
+application-id='gnome-power-panel.desktop'
+
+[org/gnome/desktop/notifications/application/google-chrome]
+application-id='google-chrome.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-terminal]
+application-id='org.gnome.Terminal.desktop'
+
+[org/gnome/desktop/notifications/application/snap-store-ubuntu-software]
+application-id='snap-store_ubuntu-software.desktop'
+
+[org/gnome/desktop/notifications/application/update-manager]
+application-id='update-manager.desktop'
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+report-technical-problems=true
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/matthew/.local/share/backgrounds/2021-01-17-11-53-02-Firefox_wallpaper.png'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=true
+
+[org/gnome/desktop/wm/keybindings]
+close=['<Super>w']
+switch-to-workspace-1=['<Super>1']
+switch-to-workspace-2=['<Super>2']
+switch-to-workspace-3=['<Super>3']
+switch-to-workspace-4=['<Super>4']
+
+[org/gnome/eog/view]
+background-color='rgb(0,0,0)'
+use-background-color=true
+
+[org/gnome/evince/default]
+window-ratio=(1.5931096599864896, 0.69145757629244942)
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/gnome-screenshot]
+border-effect='none'
+include-border=true
+include-pointer=false
+last-save-directory='file:///home/matthew'
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='list-view'
+search-filter-time-type='last_modified'
+search-view='list-view'
+
+[org/gnome/nautilus/window-state]
+initial-size=(997, 593)
+maximized=false
+
+[org/gnome/settings-daemon/plugins/media-keys]
+control-center=['Tools']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+search=['Search']
+terminal=['<Super>t']
+www=['<Super>i']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Super>e'
+command='emacsclient -c'
+name='emacsclinet'
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-inactive-ac-timeout=3600
+sleep-inactive-ac-type='nothing'
+
+[org/gnome/settings-daemon/plugins/xsettings]
+hinting='slight'
+
+[org/gnome/shell]
+app-picker-view=uint32 1
+command-history=['ls']
+disable-user-extensions=false
+disabled-extensions=['desktop-icons@csoriano', 'ubuntu-appindicators@ubuntu.com', 'ubuntu-dock@ubuntu.com']
+enabled-extensions=['pixel-saver@deadalnix.me', 'hidetopbar@mathieu.bidon.ca']
+favorite-apps=@as []
+had-bluetooth-devices-setup=true
+
+[org/gnome/shell/extensions/dash-to-dock]
+dash-max-icon-size=16
+dock-fixed=false
+dock-position='BOTTOM'
+preferred-monitor=0
+
+[org/gnome/shell/extensions/desktop-icons]
+show-home=false
+show-trash=false
+
+[org/gnome/shell/extensions/hidetopbar]
+enable-active-window=false
+enable-intellihide=false
+
+[org/gnome/software]
+check-timestamp=int64 1612089475
+online-updates-timestamp=int64 1610787433
+
+[org/gnome/system/location]
+enabled=false
+
+[org/gnome/terminal/legacy]
+default-show-menubar=false
+headerbar=@mb false
+
+[org/gnome/terminal/legacy/profiles:]
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', 'd8ab0ac0-6dc2-420f-9be6-78f15c4dae4e', 'e03eb158-6beb-4838-ab34-cc77c783a472', 'f82500fd-26cb-4707-b146-824a5648394d']
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='rgb(0,43,54)'
+bold-color-same-as-fg=true
+bold-is-bright=false
+cursor-colors-set=false
+font='Source Code Pro 16'
+foreground-color='rgb(131,148,150)'
+highlight-colors-set=false
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=false
+visible-name='dark'
+
+[org/gnome/terminal/legacy/profiles:/:d8ab0ac0-6dc2-420f-9be6-78f15c4dae4e]
+background-color='rgb(223,214,189)'
+bold-color-same-as-fg=true
+bold-is-bright=false
+cursor-colors-set=false
+font='Source Code Pro 16'
+foreground-color='rgb(101,123,131)'
+highlight-colors-set=false
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=false
+visible-name='light'
+
+[org/gnome/terminal/legacy/profiles:/:e03eb158-6beb-4838-ab34-cc77c783a472]
+background-color='rgb(255,255,255)'
+bold-color-same-as-fg=true
+bold-is-bright=false
+cursor-colors-set=false
+font='Source Code Pro 16'
+foreground-color='rgb(0,0,0)'
+highlight-colors-set=false
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=false
+visible-name='white'
+
+[org/gnome/terminal/legacy/profiles:/:f82500fd-26cb-4707-b146-824a5648394d]
+background-color='rgb(0,0,0)'
+bold-color-same-as-fg=true
+bold-is-bright=false
+cursor-colors-set=false
+font='Source Code Pro 16'
+foreground-color='rgb(170,170,170)'
+highlight-colors-set=false
+palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=false
+visible-name='black'
+
+[org/gtk/settings/color-chooser]
+custom-colors=[(0.87333333333333341, 0.83728034188034195, 0.73942222222222231, 1.0), (0.99215686274509807, 0.96470588235294119, 0.8901960784313725, 1.0)]
+selected-color=(true, 0.87333333333333341, 0.83728034188034195, 0.73942222222222231, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=161
+sort-column='name'
+sort-directories-first=true
+sort-order='ascending'
+type-format='category'
+window-position=(359, 66)
+window-size=(1203, 902)
