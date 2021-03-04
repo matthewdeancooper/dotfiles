@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(vimscript
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -55,8 +55,8 @@ This function should only modify configuration layer settings."
      (version-control :variables
                       version-control-global-margin t
                       version-control-diff-side 'left)
-     (treemacs :variables
-               treemacs-use-icons-dired nil)
+     ;; (treemacs :variables
+     ;;           treemacs-use-icons-dired nil)
      bibtex
      latex
      html
@@ -575,6 +575,14 @@ before packages are loaded."
 
   (spacemacs/set-leader-keys "jj" 'avy-goto-char-timer)
   ;; (spacemacs/set-leader-keys "hb" 'helm-bibtex)
+
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
