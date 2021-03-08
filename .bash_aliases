@@ -10,6 +10,7 @@ alias gc="git commit"
 alias gco="git checkout"
 alias gp="git push"
 alias gf="git fetch"
+alias gcp="git commit -m "update" && git push"
 alias mg="mgitstatus"
 
 # APT
