@@ -11,7 +11,7 @@ alias gco="git checkout"
 alias gp="git push"
 alias gf="git fetch"
 alias gcp="git commit -m "update" && git push"
-alias mg="mgitstatus"
+alias mg="mgitstatus -f"
 
 # APT
 alias sagi="sudo apt-get install -y"
