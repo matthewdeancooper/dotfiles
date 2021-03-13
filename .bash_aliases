@@ -22,3 +22,7 @@ alias sagar="sudo apt-get autoremove -y"
 alias sagud="sudo apt-get update -y"
 alias sagdg="sudo apt-get upgrade -y"
 alias sagm="sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y"
+
+# Python
+alias sba="source env/bin/activate"
+alias sbd="source env/bin/dectivate"
